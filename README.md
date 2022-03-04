@@ -9,7 +9,7 @@ git clone https://github.move.com/Nav-2d/Capstone
 cd Capstone
 ```
 
-**Note:** Make sure you copy `.env` file from the Google Drive and put it in the root folder
+**Note:** Make sure you read the document "Environment Variable" from the Google Drive and create a `.env` file
 
 Install dependencies and run server:
 
