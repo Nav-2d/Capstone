@@ -24,7 +24,16 @@ The backend uses MongoDB, JWT, and Express
 
 ### Routes:
 
-- `/api/users/signup` to create new users (will be disabled later on and only accessible to admin)
-- `/api/users/login` to login users
+User Routing
+
+- POST `/api/users/signup` to create new users (will be disabled later on and only accessible to admin)
+- POST `/api/users/login` to login users
+
+Timetable Routing (All of these are protected i.e. user needs to be logged in)
+
+- GET `/api/timetables/` to create get all timetables for the logged in user
+- POST `/api/timetables/` to add timetable for the logged in user
+- PUT `/api/timetables/:id` to update the selected timetable
+- DELETE `/api/timetables/:id` to delete the selected timetable
 
 The routes can be tested by calling endpoints using tool like Postman
