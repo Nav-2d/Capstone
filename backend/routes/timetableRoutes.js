@@ -1,17 +1,18 @@
 const express = require('express');
-
+const router = express.Router();
 const {
-  getTimetable,
+  getTimetables,
   addTimetable,
+  getTimetable,
   updateTimetable,
   deleteTimetable,
 } = require('../controllers/timetableController');
-const router = require('./userRoutes');
 const { protect } = require('../middleware/authMiddleware');
 
-router.route('/').get(protect, getTimetable).post(protect, addTimetable);
+router.route('/').get(protect, getTimetables).post(protect, addTimetable);
 router
   .route('/:id')
+  .get(protect, getTimetable)
   .delete(protect, deleteTimetable)
   .put(protect, updateTimetable);
 

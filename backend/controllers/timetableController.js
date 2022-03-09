@@ -1,11 +1,11 @@
 const asyncHandler = require('express-async-handler');
 const Timetable = require('../models/timetableModel');
 
-// @desc Get Timetable
+// @desc Get Timetables
 // @route GET /api/timetables
 // @access Private
-const getTimetable = asyncHandler(async (req, res) => {
-  const timetables = await Timetable.findOne({ user: req.user.id });
+const getTimetables = asyncHandler(async (req, res) => {
+  const timetables = await Timetable.find({ user: req.user.id });
   res.status(200).json(timetables);
 });
 
@@ -23,6 +23,14 @@ const addTimetable = asyncHandler(async (req, res) => {
     subject,
     user: req.user.id,
   });
+  res.status(200).json(timetable);
+});
+
+// @desc Get Timetable
+// @route GET /api/timetable/:id
+// @access Private
+const getTimetable = asyncHandler(async (req, res) => {
+  const timetable = await Timetable.findById(req.params.id);
   res.status(200).json(timetable);
 });
 
@@ -83,8 +91,9 @@ const deleteTimetable = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  getTimetable,
+  getTimetables,
   addTimetable,
+  getTimetable,
   updateTimetable,
   deleteTimetable,
 };
