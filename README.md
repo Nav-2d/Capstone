@@ -15,7 +15,10 @@ Install dependencies and run server:
 
 ```
 npm install
-npm run server
+cd frontend
+npm install
+cd ..
+npm run dev
 ```
 
 ## Backend
@@ -37,3 +40,7 @@ Timetable Routing (All of these are protected i.e. user needs to be logged in)
 - DELETE `/api/timetables/:id` to delete the selected timetable
 
 The routes can be tested by calling endpoints using tool like Postman
+
+## Frontend
+
+The front uses React & Redux
