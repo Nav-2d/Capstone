@@ -19,7 +19,7 @@ class TimetableDashboard extends Component {
   }
 
   componentDidMount() {
-    fetch('https://____')
+    fetch('https://localhost:3000/api/timetables')
       .then(result => result.json())
       .then(rowData => this.setState({ rowData }))
   }
