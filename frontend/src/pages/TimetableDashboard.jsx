@@ -1,49 +1,69 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-balham.css";
+const API_HOST = "http://localhost:5000";
+const TIMETABLES_API_URL = `${API_HOST}/api/timetables`;
 
-class TimetableDashboard extends Component {
-  constructor(props) {
-    super(props);
+function TimetableDashboard() {
+  const [data, setData] = useState([]);
 
-    this.state = {
-      rowData: [],
-      colDefs: [
-        { field: 'subject' },
-        { field: 'term_code' },
-        { field: 'createdAt' },
-      ]
-    }
+  const fetchTimetables = () => {
+    fetch(`${TIMETABLES_API_URL}`)
+      .then(res => res.json())
+      .then(json => setData(json));
   }
 
-  componentDidMount() {
-    fetch('https://localhost:3000/api/timetables')
-      .then(result => result.json())
-      .then(rowData => this.setState({ rowData }))
+  useEffect(() => {
+    fetchTimetables();
+  }, []);
+
+  const edit = () => {
+    console.log('edit');
   }
 
-  render() {
-    return (
-      <><div>Timetable Dashboard</div>
-        <div
-          className="ag-theme-balham"
-          style={{ height: '200px', width: '600px' }}
-        >
-          <AgGridReact
-            pagination={true}
-            defaultColDef={{ sortable: true, filter: true }}
-            rowData={this.state.rowData}
-            columnDefs={this.state.colDefs}
-          >
-
-
-          </AgGridReact>
-        </div>
-      </>
-    );
+  const deleteTimetable = () => {
+    console.log('delete');
   }
+
+  const copy = () => {
+    console.log('copy');
+  }
+  const exportCSV = () => {
+    console.log('export');
+  }
+
+  return (
+    <div className="container">
+      <h1>Timetable Dashboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Term Code</th>
+            <th>Created On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INFO</td>
+            <td>202010</td>
+            <td>01-Jan-2022</td>
+            <td>
+              <div class="dropdown">
+                <button><span>&#8942;</span></button>
+                <div class="dropdown-content">
+                  <p onClick={edit}>Edit</p>
+                  <p onClick={deleteTimetable}>Delete</p>
+                  <p onClick={copy}>Copy</p>
+                  <p onClick={exportCSV}>Export to CSV</p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default TimetableDashboard;

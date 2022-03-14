@@ -213,3 +213,21 @@ h3 {
     font-size: 1.5rem;
   }
 }
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  width: 120%;
+  text-align: left;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 100%;
+  overflow: auto;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+  width: 200%;
+}
