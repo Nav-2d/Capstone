@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 const API_HOST = "http://localhost:5000";
 const TIMETABLES_API_URL = `${API_HOST}/api/timetables`;
 
 function TimetableDashboard() {
   const [data, setData] = useState([]);
+
+  const navigate = useNavigate();
 
   const fetchTimetables = () => {
     fetch(`${TIMETABLES_API_URL}`)
@@ -18,6 +21,11 @@ function TimetableDashboard() {
 
   const edit = () => {
     console.log('edit');
+  }
+
+  const addTimetable = () => {
+    console.log('add');
+    navigate('/addtimetable');
   }
 
   const deleteTimetable = () => {
@@ -34,6 +42,7 @@ function TimetableDashboard() {
   return (
     <div className="container">
       <h1>Timetable Dashboard</h1>
+      <button onClick={addTimetable}>Add</button>
       <table>
         <thead>
           <tr>

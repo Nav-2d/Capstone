@@ -26,7 +26,7 @@ function Login() {
     }
 
     if (isSuccess || user) {
-      navigate('/');
+      navigate('/timetabledashboard');
     }
 
     dispatch(reset());
@@ -51,7 +51,7 @@ function Login() {
   };
 
   if (isLoading) {
-    return <h1>Test</h1>;
+    return <h1>Loading...</h1>;
   }
 
   return (
