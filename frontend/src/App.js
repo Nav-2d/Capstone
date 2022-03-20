@@ -5,6 +5,8 @@ import Header from './components/Header';
 import CoursesDashboard from './pages/CoursesDashboard';
 import Login from './pages/Login';
 import TimetableDashboard from './pages/TimetableDashboard';
+import AddTimetable from './pages/AddTimetable';
+import AddCourse from './pages/AddCourse';
 
 function App() {
   return (
@@ -14,8 +16,10 @@ function App() {
           <Header />
           <Routes>
             <Route path='/login' element={<Login />}></Route>
-            <Route path='/' element={<TimetableDashboard />}></Route>
+            <Route path='/timetabledashboard' element={<TimetableDashboard />}></Route>
             <Route path='/courses' element={<CoursesDashboard />}></Route>
+            <Route path='/addtimetable' element={<AddTimetable />}></Route>
+            <Route path='/addcourse' element={<AddCourse />}></Route>
           </Routes>
         </div>
       </Router>
