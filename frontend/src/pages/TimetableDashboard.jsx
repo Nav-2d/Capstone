@@ -23,8 +23,11 @@ function TimetableDashboard() {
     console.log('edit');
   }
 
+  const view = () => {
+    navigate('/courses');;
+  }
+
   const addTimetable = () => {
-    console.log('add');
     navigate('/addtimetable');
   }
 
@@ -42,7 +45,7 @@ function TimetableDashboard() {
   return (
     <div className="container">
       <h1>Timetable Dashboard</h1>
-      <button onClick={addTimetable}>Add</button>
+      <button onClick={addTimetable}>Add a new Timetable</button>
       <table>
         <thead>
           <tr>
@@ -62,6 +65,7 @@ function TimetableDashboard() {
                 <button><span>&#8942;</span></button>
                 <div class="dropdown-content">
                   <p onClick={edit}>Edit</p>
+                  <p onClick={view}>View</p>
                   <p onClick={deleteTimetable}>Delete</p>
                   <p onClick={copy}>Copy</p>
                   <p onClick={exportCSV}>Export to CSV</p>

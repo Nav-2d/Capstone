@@ -27,7 +27,8 @@ function AddTimetable() {
       termcode,
     };
 
-    //add to the DB
+    //add to the DB and if succesfully saved navigate to the timetable dashboard
+    navigate('/timetabledashboard');
   };
 
   
