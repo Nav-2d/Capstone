@@ -15,8 +15,11 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/timetabledashboard' element={<TimetableDashboard />}></Route>
+            <Route path='/' element={<Login />}></Route>
+            <Route
+              path='/timetabledashboard'
+              element={<TimetableDashboard />}
+            ></Route>
             <Route path='/courses' element={<CoursesDashboard />}></Route>
             <Route path='/addtimetable' element={<AddTimetable />}></Route>
             <Route path='/addcourse' element={<AddCourse />}></Route>
