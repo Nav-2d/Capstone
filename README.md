@@ -43,4 +43,4 @@ The routes can be tested by calling endpoints using tool like Postman
 
 ## Frontend
 
-The front uses React & Redux
+The front uses React & Redux. For styling, we are using [TailwindCSS](https://tailwindcss.com/docs/)
