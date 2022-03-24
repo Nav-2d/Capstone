@@ -12,19 +12,17 @@ function App() {
   return (
     <>
       <Router>
-        <div className='container'>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Login />}></Route>
-            <Route
-              path='/timetabledashboard'
-              element={<TimetableDashboard />}
-            ></Route>
-            <Route path='/courses' element={<CoursesDashboard />}></Route>
-            <Route path='/addtimetable' element={<AddTimetable />}></Route>
-            <Route path='/addcourse' element={<AddCourse />}></Route>
-          </Routes>
-        </div>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Login />}></Route>
+          <Route
+            path='/timetabledashboard'
+            element={<TimetableDashboard />}
+          ></Route>
+          <Route path='/courses' element={<CoursesDashboard />}></Route>
+          <Route path='/addtimetable' element={<AddTimetable />}></Route>
+          <Route path='/addcourse' element={<AddCourse />}></Route>
+        </Routes>
       </Router>
       <ToastContainer />
     </>

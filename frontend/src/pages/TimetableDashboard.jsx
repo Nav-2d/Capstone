@@ -52,7 +52,7 @@ function TimetableDashboard() {
     }
 
     if (!user) {
-      navigate('/login');
+      navigate('/');
     }
     dispatch(getTimetables());
 
@@ -89,11 +89,11 @@ function TimetableDashboard() {
                 <td>{timetable.term_code}</td>
                 <td>{new Date(timetable.createdAt).toLocaleString('en-US')}</td>
                 <td>
-                  <div class='dropdown'>
+                  <div className='dropdown'>
                     <button>
                       <span>&#8942;</span>
                     </button>
-                    <div class='dropdown-content'>
+                    <div className='dropdown-content'>
                       <p onClick={edit}>Edit</p>
                       <p onClick={view}>View</p>
                       <p onClick={deleteTimetable}>Delete</p>
