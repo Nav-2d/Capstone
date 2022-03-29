@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import loginImage from '../assets/login.png';
+import loginImage from '../assets/login.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -55,88 +55,56 @@ function Login() {
   }
 
   return (
-    <>
-      <div className='w-full flex flex-wrap min-h-screen'>
-        <div className='w-full md:w-1/2 flex flex-col'>
-          <div className='min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-            <div className='max-w-md w-full space-y-8'>
-              <div>
-                <h2 className='text-center text-3xl font-extrabold text-gray-900'>
-                  Sign in to your account
-                </h2>
-              </div>
-              <form className='mt-8 space-y-6' onSubmit={onSubmit}>
-                <input type='hidden' name='remember' defaultValue='true' />
-                <div className='rounded-md shadow-sm -space-y-px'>
-                  <div className='flex flex-col pt-4'>
-                    <label htmlFor='email-address' className='text-md'>
-                      Email address
-                    </label>
-                    <input
-                      id='email'
-                      name='email'
-                      type='email'
-                      autoComplete='email'
-                      required
-                      className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red focus:border-red focus:z-10 sm:text-sm'
-                      placeholder='Enter your email address'
-                      onChange={onChange}
-                    />
-                  </div>
-                  <div className='flex flex-col pt-4'>
-                    <label htmlFor='password' className='text-md'>
-                      Password
-                    </label>
-                    <input
-                      id='password'
-                      name='password'
-                      type='password'
-                      autoComplete='current-password'
-                      required
-                      className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red focus:border-red focus:z-10 sm:text-sm'
-                      placeholder='Enter your Password'
-                      onChange={onChange}
-                    />
-                  </div>
-                </div>
-
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center'>
-                    <input
-                      id='remember-me'
-                      name='remember-me'
-                      type='checkbox'
-                      className='h-4 w-4 text-red focus:ring-red border-gray-300 rounded'
-                    />
-                    <label
-                      htmlFor='remember-me'
-                      className='ml-2 block text-sm text-gray-900'
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <button
-                    type='submit'
-                    className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red'
-                  >
-                    Sign in
-                  </button>
-                </div>
-              </form>
-            </div>
+    <div className='flex flex-wrap h-screen justify-center items-center'>
+      <div className='w-full md:w-3/5 lg:w-1/2 md:min-h-full flex items-center justify-center'>
+        <div className='max-w-sm mx-auto'>
+          <div className='mb-6 text-center'>
+            <h3 className='text-2xl md:text-3xl font-bold'>
+              Sign in to your account
+            </h3>
           </div>
-        </div>
-        <div className='w-1/2 shadow-2xl'>
-          <img
-            className='object-none object-center w-full h-screen hidden md:block'
-            src={loginImage}
-            alt='test'
-          />
+          <form onSubmit={onSubmit}>
+            <div className='mb-6'>
+              <label htmlFor='email' className='text-md'>
+                Email address
+              </label>
+              <input
+                type='email'
+                name='email'
+                id='email'
+                required
+                onChange={onChange}
+                placeholder='Enter your email address'
+                className='appearance-none block w-full px-3 py-2 mb-4 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
+              />
+            </div>
+            <div className='mb-6'>
+              <label htmlFor='password' className='text-md'>
+                Password
+              </label>
+              <input
+                type='password'
+                name='password'
+                id='password'
+                required
+                onChange={onChange}
+                placeholder='Enter your password'
+                className='appearance-none block w-full px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
+              />
+            </div>
+            <button
+              type='submit'
+              className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-md font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+            >
+              Sign In
+            </button>
+          </form>
         </div>
       </div>
-    </>
+      <div className='md:w-2/5 lg:w-1/2 md:shadow-2xl md:min-h-full flex items-center justify-center'>
+        <img className='w-3/4' src={loginImage} alt='' />
+      </div>
+    </div>
   );
 }
 
