@@ -21,7 +21,7 @@ function Header() {
               <span>University Timetable</span>
             </Link>
           </div>
-          <div className='bg-primary px-4 py-2 rounded-md'>
+          <div className='cursor-pointer  bg-primary px-4 py-2 rounded-md'>
             {user ? (
               <button onClick={onLogout}>Logout</button>
             ) : (
