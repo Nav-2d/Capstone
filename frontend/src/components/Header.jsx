@@ -17,7 +17,7 @@ function Header() {
       <div className='container mx-auto px-8 sm:px-4 text-white'>
         <div className='flex flex-col sm:flex-row justify-between items-center py-6'>
           <div className='font-bold mb-4 sm:mb-0'>
-            <Link to='/timetabledashboard'>
+            <Link to='/timetable-dashboard'>
               <span>University Timetable</span>
             </Link>
           </div>

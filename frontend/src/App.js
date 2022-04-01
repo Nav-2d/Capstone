@@ -16,11 +16,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />}></Route>
           <Route
-            path='/timetabledashboard'
+            path='/timetable-dashboard'
             element={<TimetableDashboard />}
           ></Route>
+          <Route path='/add-timetable' element={<AddTimetable />}></Route>
           <Route path='/courses' element={<CoursesDashboard />}></Route>
-          <Route path='/addtimetable' element={<AddTimetable />}></Route>
           <Route path='/addcourse' element={<AddCourse />}></Route>
         </Routes>
       </Router>

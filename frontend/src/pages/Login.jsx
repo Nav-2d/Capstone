@@ -26,7 +26,7 @@ function Login() {
     }
 
     if (isSuccess || user) {
-      navigate('/timetabledashboard');
+      navigate('/timetable-dashboard');
     }
 
     dispatch(reset());
