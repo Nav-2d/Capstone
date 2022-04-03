@@ -13,21 +13,19 @@ function Header() {
     navigate('/');
   };
   return (
-    <div className='relative bg-white'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-        <div className='flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10'>
-          <div className='flex justify-start lg:w-0 lg:flex-1'>
-            <Link to='/timetabledashboard'>University Timetable</Link>
+    <div className='bg-black'>
+      <div className='container mx-auto px-8 sm:px-4 text-white'>
+        <div className='flex flex-col sm:flex-row justify-between items-center py-6'>
+          <div className='font-bold mb-4 sm:mb-0'>
+            <Link to='/timetable-dashboard'>
+              <span>University Timetable</span>
+            </Link>
           </div>
-          <div className='md:flex items-center justify-end md:flex-1 lg:w-0'>
+          <div className='cursor-pointer  bg-primary px-4 py-2 rounded-md'>
             {user ? (
-              <div className='whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900'>
-                <button onClick={onLogout}>Logout</button>
-              </div>
+              <button onClick={onLogout}>Logout</button>
             ) : (
-              <div className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red hover:bg-red'>
-                <Link to='/'>Sign In</Link>
-              </div>
+              <Link to='/'>Sign In</Link>
             )}
           </div>
         </div>
