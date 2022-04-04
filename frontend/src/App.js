@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import TimetableDashboard from './pages/TimetableDashboard';
 import AddTimetable from './pages/AddTimetable';
 import AddCourse from './pages/AddCourse';
+import ViewCourses from './pages/ViewCourses';
+import TabsTesting from './pages/TabsTesting';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path='/add-timetable' element={<AddTimetable />}></Route>
           <Route path='/courses' element={<CoursesDashboard />}></Route>
           <Route path='/addcourse' element={<AddCourse />}></Route>
+          <Route path='/coursedetails' element={<ViewCourses />}></Route>
+          <Route path='/tabtesting' element={<TabsTesting />}></Route>
         </Routes>
       </Router>
       <ToastContainer />

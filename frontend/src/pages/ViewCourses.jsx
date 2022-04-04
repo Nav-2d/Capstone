@@ -1,10 +1,14 @@
+
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { reset, getTimetables } from '../features/timetables/timetableSlice';
 
-function CoursesDashboard() {
+/*This page is meant to view the details of a specific course. Ex. When Course Details is clicked, it would show the course CRN, ID, Name, etc. 
+When Class Size is clicked, it would show number of registrants and waitlists.*/
+
+function ViewCourses() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -71,52 +75,77 @@ function CoursesDashboard() {
               d='M10 19l-7-7m0 0l7-7m-7 7h18'
             />
           </svg>
-          <Link to='/timetable-dashboard'>Back to Timetable Dashboard</Link>
+          <Link to='/timetable-dashboard'>Back to your Courses Dashboard</Link>
         </div>
       </div>
       <div className='px-4'>
         <div className='text-left'>
           <h1 className='text-3xl md:text-4xl font-extrabold font-heading mt-3 mb-4'>
-            Courses Dashboard
+            Course Details
           </h1>
-          <span className='text-lg font-extrabold text-primary'>
-            View or add courses
+          <span className='text-2xl md:text-2xl text-primary font-extrabold font-heading mt-3 mb-4'>
+            Course Title Goes Here
           </span>
         </div>
-        <div className='max-w-lg pt-10'>
-          <div className='flex flex-wrap -mx-2 justify-center'>
-            <div className='flex-grow w-full md:w-auto px-2 mb-2'>
-              <input
-                className='inline-block w-full p-4 text-lg font-bold placeholder-gray-500 shadow border-2 border-primary rounded outline-none'
-                type='email'
-                placeholder='Search for courses'
-              />
-            </div>
-            <div className='w-full md:w-auto px-2 mb-2'>
-              <a
-                className='inline-flex items-center justify-center w-full md:w-auto h-full py-4 px-5 text-center leading-6 text-lg text-white font-extrabold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
-                href='/'
-              >
-                Search
-              </a>
-            </div>
-          </div>
-        </div>
+       
       </div>
       <div className='relative rounded-xl overflow-auto pt-10'>
         <div className='shadow-sm overflow-hidden my-8'>
           <table className='border-collapse table-auto w-full text-sm'>
             <thead className='bg-white py-12'>
               <tr>
-                <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left'>
-                  Subject
+              <div className='w-full md:w-auto px-2 mb-2'>
+                <th className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'>
+                  Course Info
                 </th>
-                <th className='border-b font-medium p-4 pt-0 pb-3 text-primary text-left'>
-                  Term Code
+                </div>
+                <div className='w-full md:w-auto px-2 mb-2'>
+                <th className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'>
+                  Meeting Schedule
                 </th>
-                <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
-                  Created On
-                </th>
+                </div>
+                <div className='w-full md:w-auto px-2 mb-2'>
+              <a
+                className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'
+              >
+                Instructor Details
+              </a>
+            </div>
+            <div className='w-full md:w-auto px-2 mb-2'>
+              <a
+                className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'
+              >
+                Final Exam Info
+              </a>
+            </div>
+            <div className='w-full md:w-auto px-2 mb-2'>
+              <a
+                className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'
+              >
+                Class Size and Reserves
+              </a>
+            </div>
+            <div className='w-full md:w-auto px-2 mb-2'>
+              <a
+                className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'
+              >
+                Fees and Textbooks
+              </a>
+            </div>
+            <div className='w-full md:w-auto px-2 mb-2'>
+              <a
+                className='inline-flex items-center justify-center w-full md:w-auto h-full py-1 px-2 text-center leading-6 text-lg text-white font-bold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200'
+                href='/'
+              >
+                Misc Details
+              </a>
+            </div>
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
@@ -143,7 +172,7 @@ function CoursesDashboard() {
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/coursedetails'>
+                      <Link to='/courses'>
                         <span>View</span>
                       </Link>
                     </td>
@@ -163,6 +192,7 @@ function CoursesDashboard() {
                       </Link>
                     </td>
                   </tr>
+                  
                 );
               })}
             </tbody>
@@ -173,4 +203,4 @@ function CoursesDashboard() {
   );
 }
 
-export default CoursesDashboard;
+export default ViewCourses;

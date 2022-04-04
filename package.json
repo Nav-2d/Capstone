@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Nav-2d/Capstone#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^15.0.0",
