@@ -20,8 +20,8 @@ function CoursesDashboard() {
     navigate('/courses');
   };
 
-  const addTimetable = () => {
-    navigate('/addtimetable');
+  const addCourse = () => {
+    navigate('/addCourse');
   };
 
   const deleteTimetable = () => {
@@ -103,16 +103,32 @@ function CoursesDashboard() {
           </div>
         </div>
       </div>
+      <div className='px-4'>
+        <span className='text-lg font-extrabold'>
+          Subject: INFO Term: 202010
+        </span>
+      </div>
       <div className='relative rounded-xl overflow-auto pt-10'>
         <div className='shadow-sm overflow-hidden my-8'>
           <table className='border-collapse table-auto w-full text-sm'>
             <thead className='bg-white py-12'>
               <tr>
-                <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left'>
+           
+                {/* <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left'>
                   Subject
                 </th>
                 <th className='border-b font-medium p-4 pt-0 pb-3 text-primary text-left'>
                   Term Code
+                </th> */}
+       
+                <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
+                  CRN
+                </th>
+                <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
+                  Course Num
+                </th>
+                <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
+                  Section
                 </th>
                 <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
                   Created On
@@ -128,14 +144,25 @@ function CoursesDashboard() {
               {timetables.map((timetable, key) => {
                 return (
                   <tr key={key}>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black '>
+                    
+                    {/* <td className='border-b border-slate-100  p-4 pl-8 text-black '>
                       {timetable.subject}
                     </td>
                     <td className='border-b border-slate-100  p-4 text-black '>
                       {timetable.term_code}
+                    </td> */}
+                    
+                    <td className='border-b border-slate-100  p-4 text-black '>
+                      {/* {course.crn} */}21109
+                    </td>
+                    <td className='border-b border-slate-100  p-4 text-black '>
+                      {/* {course.course_number} */}1111
+                    </td>
+                    <td className='border-b border-slate-100  p-4 text-black '>
+                      {/* {course.section} */}S11
                     </td>
                     <td className='border-b border-slate-100  p-4 pr-8 text-black'>
-                      {moment(timetable.createdAt).format('DD-MMM-YYYY')}
+                      {/* {moment(course.createdAt).format('DD-MMM-YYYY')} */}04-Mar-2022
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
                       <Link to='/courses'>
@@ -157,11 +184,11 @@ function CoursesDashboard() {
                         <span>Copy</span>
                       </Link>
                     </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                    {/* <td className='border-b border-slate-100  p-4 pl-8 text-black'>
                       <Link to='/courses'>
                         <span>Export CSV</span>
                       </Link>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
