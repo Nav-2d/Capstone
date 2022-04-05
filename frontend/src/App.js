@@ -20,8 +20,11 @@ function App() {
             element={<TimetableDashboard />}
           ></Route>
           <Route path='/add-timetable' element={<AddTimetable />}></Route>
-          <Route path='/courses' element={<CoursesDashboard />}></Route>
-          <Route path='/addcourse' element={<AddCourse />}></Route>
+          <Route
+            path='/course-dashboard'
+            element={<CoursesDashboard />}
+          ></Route>
+          <Route path='/add-course' element={<AddCourse />}></Route>
         </Routes>
       </Router>
       <ToastContainer />

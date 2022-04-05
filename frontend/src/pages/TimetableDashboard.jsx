@@ -140,27 +140,27 @@ function TimetableDashboard() {
                       {moment(timetable.createdAt).format('DD-MMM-YYYY')}
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/course-dashboard'>
                         <span>Edit</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/course-dashboard'>
                         <span>View</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/course-dashboard'>
                         <span>Delete</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/course-dashboard'>
                         <span>Copy</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/course-dashboard'>
                         <span>Export CSV</span>
                       </Link>
                     </td>
