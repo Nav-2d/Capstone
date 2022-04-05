@@ -52,7 +52,7 @@ function AddTimetable() {
           </div>
         </div>
       </div>
-      <div className='max-w-sm mx-auto'>
+      <div className='max-w-md mx-auto p-10 shadow-lg'>
         <div className='mb-6 text-center'>
           <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Add Timetable</h3>
         </div>
