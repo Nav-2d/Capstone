@@ -1,5 +1,5 @@
 import { useState } from 'react';
-wimport { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createTimetable } from '../features/timetables/timetableSlice';
 
