@@ -75,13 +75,34 @@ function CoursesDashboard() {
         </div>
       </div>
       <div className='px-4'>
-        <div className='text-left'>
-          <h1 className='text-3xl md:text-4xl font-extrabold font-heading mt-3 mb-4'>
-            Courses Dashboard
-          </h1>
-          <span className='text-lg font-extrabold text-primary'>
-            View or add courses
-          </span>
+        <div className='flex justify-between items-center'>
+          <div className='font-extrabold'>
+            <h1 className='text-3xl md:text-4xl  font-heading mt-3 mb-4'>
+              Courses Dashboard
+            </h1>
+            <span className='text-lg text-primary'>View or add courses</span>
+          </div>
+          <div>
+            <Link
+              to='/add-course'
+              className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+            >
+              <svg
+                className='-ml-1 mr-2 h-5 w-5'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 20 20'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                  clipRule='evenodd'
+                />
+              </svg>
+              <p>Add</p>
+            </Link>
+          </div>
         </div>
         <div className='max-w-lg pt-10'>
           <div className='flex flex-wrap -mx-2 justify-center'>
@@ -113,14 +134,6 @@ function CoursesDashboard() {
           <table className='border-collapse table-auto w-full text-sm'>
             <thead className='bg-white py-12'>
               <tr>
-           
-                {/* <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left'>
-                  Subject
-                </th>
-                <th className='border-b font-medium p-4 pt-0 pb-3 text-primary text-left'>
-                  Term Code
-                </th> */}
-       
                 <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
                   CRN
                 </th>
@@ -144,51 +157,38 @@ function CoursesDashboard() {
               {timetables.map((timetable, key) => {
                 return (
                   <tr key={key}>
-                    
-                    {/* <td className='border-b border-slate-100  p-4 pl-8 text-black '>
-                      {timetable.subject}
+                    <td className='border-b border-slate-100  p-4 text-black '>
+                      21109
                     </td>
                     <td className='border-b border-slate-100  p-4 text-black '>
-                      {timetable.term_code}
-                    </td> */}
-                    
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      {/* {course.crn} */}21109
+                      1111
                     </td>
                     <td className='border-b border-slate-100  p-4 text-black '>
-                      {/* {course.course_number} */}1111
-                    </td>
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      {/* {course.section} */}S11
+                      S11
                     </td>
                     <td className='border-b border-slate-100  p-4 pr-8 text-black'>
-                      {/* {moment(course.createdAt).format('DD-MMM-YYYY')} */}04-Mar-2022
+                      04-Mar-2022
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Edit</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>View</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Delete</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Copy</span>
                       </Link>
                     </td>
-                    {/* <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
-                        <span>Export CSV</span>
-                      </Link>
-                    </td> */}
                   </tr>
                 );
               })}

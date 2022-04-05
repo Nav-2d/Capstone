@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createTimetable } from '../features/timetables/timetableSlice';
 
-function AddCourse() {
+function ViewCourse() {
   const [formData, setFormData] = useState({
     subject: '',
     term_code: '',
@@ -52,7 +52,7 @@ function AddCourse() {
       </div>
       <div className='max-w-sm mx-auto'>
         <div className='mb-6 text-center'>
-          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Add Course</h3>
+          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>View Course</h3>
         </div>
       </div>
       <div className='hidden sm:block' aria-hidden='true'>
@@ -86,7 +86,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -101,7 +103,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -116,7 +120,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -132,8 +138,10 @@ function AddCourse() {
                         type='text'
                         name='first-name'
                         id='first-name'
+                        value='test'
+                        disabled
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -148,7 +156,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -163,7 +173,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -173,7 +185,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -214,7 +226,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -229,7 +243,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -239,7 +255,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -280,7 +296,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -295,7 +313,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -310,7 +330,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -327,7 +349,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -342,7 +366,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -357,7 +383,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -374,7 +402,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -389,7 +419,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -404,7 +436,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -414,7 +448,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -455,7 +489,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -470,7 +506,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -487,7 +525,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -502,7 +542,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -512,7 +554,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -553,7 +595,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -568,7 +612,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -585,7 +631,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -600,7 +648,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -610,7 +660,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -651,7 +701,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -666,7 +718,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
@@ -681,7 +735,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -691,7 +747,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -732,7 +788,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -747,7 +805,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -762,7 +822,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -779,7 +841,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -794,7 +858,9 @@ function AddCourse() {
                         name='last-name'
                         id='last-name'
                         autoComplete='family-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
@@ -809,7 +875,9 @@ function AddCourse() {
                         name='first-name'
                         id='first-name'
                         autoComplete='given-name'
-                        className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                        value='test'
+                        disabled
+                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                   </div>
@@ -825,7 +893,9 @@ function AddCourse() {
                       name='first-name'
                       id='first-name'
                       autoComplete='given-name'
-                      className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+                      value='test'
+                      disabled
+                      className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                     />
                   </div>
                 </div>
@@ -834,7 +904,7 @@ function AddCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Save
+                    Edit
                   </button>
                 </div>
               </div>
@@ -846,4 +916,4 @@ function AddCourse() {
   );
 }
 
-export default AddCourse;
+export default ViewCourse;
