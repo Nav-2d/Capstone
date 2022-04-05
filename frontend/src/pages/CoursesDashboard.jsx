@@ -75,13 +75,34 @@ function CoursesDashboard() {
         </div>
       </div>
       <div className='px-4'>
-        <div className='text-left'>
-          <h1 className='text-3xl md:text-4xl font-extrabold font-heading mt-3 mb-4'>
-            Courses Dashboard
-          </h1>
-          <span className='text-lg font-extrabold text-primary'>
-            View or add courses
-          </span>
+        <div className='flex justify-between items-center'>
+          <div className='font-extrabold'>
+            <h1 className='text-3xl md:text-4xl  font-heading mt-3 mb-4'>
+              Courses Dashboard
+            </h1>
+            <span className='text-lg text-primary'>View or add courses</span>
+          </div>
+          <div>
+            <Link
+              to='/add-course'
+              className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+            >
+              <svg
+                className='-ml-1 mr-2 h-5 w-5'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 20 20'
+                fill='currentColor'
+                aria-hidden='true'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                  clipRule='evenodd'
+                />
+              </svg>
+              <p>Add</p>
+            </Link>
+          </div>
         </div>
         <div className='max-w-lg pt-10'>
           <div className='flex flex-wrap -mx-2 justify-center'>
