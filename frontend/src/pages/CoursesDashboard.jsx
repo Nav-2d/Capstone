@@ -170,22 +170,22 @@ function CoursesDashboard() {
                       04-Mar-2022
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Edit</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>View</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Delete</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/courses'>
+                      <Link to='/view-course'>
                         <span>Copy</span>
                       </Link>
                     </td>
