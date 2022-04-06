@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createTimetable } from '../features/timetables/timetableSlice';
 
 function AddCourse() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate, dispatch]);
+
   const [formData, setFormData] = useState({
     subject: '',
     term_code: '',
   });
 
   const { subject, term_code } = formData;
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const onChange = (e) => {
     setFormData((prevState) => ({
