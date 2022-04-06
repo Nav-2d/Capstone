@@ -4,6 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import CoursesDashboard from './pages/CoursesDashboard';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
 import TimetableDashboard from './pages/TimetableDashboard';
 import AddTimetable from './pages/AddTimetable';
 import AddCourse from './pages/AddCourse';
@@ -16,6 +18,8 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Login />}></Route>
+          <Route path='/sign-up' element={<SignUp />}></Route>
+          <Route path='/forgot-password' element={<ForgotPassword />}></Route>
           <Route
             path='/timetable-dashboard'
             element={<TimetableDashboard />}

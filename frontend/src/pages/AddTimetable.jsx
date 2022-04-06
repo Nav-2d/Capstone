@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTimetable } from '../features/timetables/timetableSlice';
 
 function AddTimetable() {
@@ -13,6 +13,12 @@ function AddTimetable() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
