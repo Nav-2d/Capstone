@@ -35,7 +35,7 @@ function AddCourse() {
         <div class='text-primary font-medium text-sm  text-center inline-flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
+            className='h-4 w-4'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'
@@ -47,7 +47,9 @@ function AddCourse() {
               d='M10 19l-7-7m0 0l7-7m-7 7h18'
             />
           </svg>
-          <Link to='/course-dashboard'>Back to Course Dashboard</Link>
+          <div className='pl-2'>
+            <Link to='/course-dashboard'>Back to Course Dashboard</Link>
+          </div>
         </div>
       </div>
       <div className='max-w-sm mx-auto'>
@@ -654,7 +656,7 @@ function AddCourse() {
                         className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
-                    <div className='col-span-6 sm:col-span-3'>
+                    <div className='col-span-4 sm:col-span-2'>
                       <label
                         htmlFor='last-name'
                         className='block text-sm font-medium text-gray-700'
@@ -669,7 +671,7 @@ function AddCourse() {
                         className='mt-1 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
-                    <div className='col-span-6 sm:col-span-3'>
+                    <div className='col-span-6 sm:col-span-2'>
                       <label
                         htmlFor='last-name'
                         className='block text-sm font-medium text-gray-700'

@@ -706,7 +706,7 @@ function ViewCourse() {
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
-                    <div className='col-span-6 sm:col-span-3'>
+                    <div className='col-span-4 sm:col-span-2'>
                       <label
                         htmlFor='last-name'
                         className='block text-sm font-medium text-gray-700'
@@ -723,7 +723,7 @@ function ViewCourse() {
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
-                    <div className='col-span-6 sm:col-span-3'>
+                    <div className='col-span-4 sm:col-span-2'>
                       <label
                         htmlFor='last-name'
                         className='block text-sm font-medium text-gray-700'

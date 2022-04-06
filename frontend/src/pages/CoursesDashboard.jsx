@@ -59,7 +59,7 @@ function CoursesDashboard() {
         <div class='text-primary font-medium text-sm  text-center inline-flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
+            className='h-4 w-4'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'
@@ -71,7 +71,9 @@ function CoursesDashboard() {
               d='M10 19l-7-7m0 0l7-7m-7 7h18'
             />
           </svg>
-          <Link to='/timetable-dashboard'>Back to Timetable Dashboard</Link>
+          <div className='pl-2'>
+            <Link to='/timetable-dashboard'>Back to Timetable Dashboard</Link>
+          </div>
         </div>
       </div>
       <div className='px-4'>
@@ -124,7 +126,7 @@ function CoursesDashboard() {
           </div>
         </div>
       </div>
-      <div className='px-4'>
+      <div className='px-4 mt-10'>
         <span className='text-lg font-extrabold'>
           Subject: INFO Term: 202010
         </span>
