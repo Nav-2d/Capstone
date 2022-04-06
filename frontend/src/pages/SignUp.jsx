@@ -74,7 +74,7 @@ function SignUp() {
                 id='email'
                 required
                 onChange={onChange}
-                placeholder="Enter department chair's email address"
+                placeholder="Enter email address"
                 className='appearance-none block w-full px-3 py-2 mb-4 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
               />
             </div>
@@ -88,7 +88,7 @@ function SignUp() {
                 id='password'
                 required
                 onChange={onChange}
-                placeholder='Enter password for the department chair'
+                placeholder='Enter password'
                 className='appearance-none block w-full px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
               />
             </div>
@@ -105,7 +105,7 @@ function SignUp() {
                 id='confirmPassword'
                 required
                 onChange={onChange}
-                placeholder='Enter password for the department chair again'
+                placeholder='Enter password again'
                 className='appearance-none block w-full px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
               />
             </div>
