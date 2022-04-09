@@ -65,6 +65,20 @@ function SignUp() {
           </div>
           <form onSubmit={onSubmit}>
             <div className='mb-6'>
+              <label htmlFor='name' className='block mb-2 font-medium'>
+                Name
+              </label>
+              <input
+                type='name'
+                name='name'
+                id='name'
+                required
+                onChange={onChange}
+                placeholder='Enter your name'
+                className='appearance-none block w-full px-3 py-2 mb-4 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
+              />
+            </div>
+            <div className='mb-6'>
               <label htmlFor='email' className='block mb-2 font-medium'>
                 Email address
               </label>

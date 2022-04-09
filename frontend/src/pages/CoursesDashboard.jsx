@@ -152,7 +152,6 @@ function CoursesDashboard() {
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
-                <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
               </tr>
             </thead>
             <tbody className='bg-white'>
@@ -174,11 +173,6 @@ function CoursesDashboard() {
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
                       <Link to='/view-course'>
                         <span>Edit</span>
-                      </Link>
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>View</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>

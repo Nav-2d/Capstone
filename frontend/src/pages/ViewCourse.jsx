@@ -100,23 +100,6 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
-                        className='block text-sm font-medium text-gray-700'
-                      >
-                        Subject
-                      </label>
-                      <input
-                        type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
-                        value='test'
-                        disabled
-                        className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
-                      />
-                    </div>
-                    <div className='col-span-4 sm:col-span-2'>
-                      <label
                         htmlFor='first-name'
                         className='block text-sm font-medium text-gray-700'
                       >
