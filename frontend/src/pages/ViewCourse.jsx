@@ -62,6 +62,11 @@ function ViewCourse() {
           <h3 className='mb-4 text-2xl md:text-3xl font-bold'>View Course</h3>
         </div>
       </div>
+      <div className='px-4 mt-10'>
+        <span className='text-lg font-extrabold'>
+          Subject: INFO Term: 202010
+        </span>
+      </div>
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
           <div className='border-t border-gray-200' />

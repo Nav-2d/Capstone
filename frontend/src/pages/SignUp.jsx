@@ -74,7 +74,7 @@ function SignUp() {
                 id='name'
                 required
                 onChange={onChange}
-                placeholder='Enter your name'
+                placeholder="Enter user's name"
                 className='appearance-none block w-full px-3 py-2 mb-4 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md placeholder-gray-500'
               />
             </div>
