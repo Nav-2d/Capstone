@@ -1,12 +1,20 @@
 const asyncHandler = require('express-async-handler');
-const Timetable = require('../models/timetableModel');
+const Course = require('../models/courseModel');
 
 // @desc Get Courses
 // @route GET /api/courses
 // @access Private
 const getCourses = asyncHandler(async (req, res) => {
-  const courses = await Course.find({ user: req.params.id });
+  const courses = await Course.find({ user: req.user.id });
   res.status(200).json(courses);
+});
+
+// @desc Get Courses
+// @route GET /api/courses
+// @access Private
+const getCourse = asyncHandler(async (req, res) => {
+  const course = await Course.find({ timetable: req.params.id });
+  res.status(200).json(course);
 });
 
 // @desc Add Courses
@@ -28,13 +36,7 @@ const addCourse = asyncHandler(async (req, res) => {
   res.status(200).json(timetable);
 });
 
-// @desc Get Courses
-// @route GET /api/courses
-// @access Private
-const getCourse = asyncHandler(async (req, res) => {
-  const timetable = await Timetable.findById(req.params.id);
-  res.status(200).json(timetables);
-});
+
 
 // @desc Update Timetable
 // @route PUT /api/timetables/:id

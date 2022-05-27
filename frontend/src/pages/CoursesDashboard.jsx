@@ -1,15 +1,22 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import { reset, getTimetables } from '../features/timetables/timetableSlice';
+import { reset, getTimetable } from '../features/timetables/timetableSlice';
+import { reset1, getCourse } from '../features/courses/courseSlice';
+import { useParams } from 'react-router-dom';
 
 function CoursesDashboard() {
+  const params = useParams();
+  // console.log(params.timetableId)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { timetables, isLoading, isError, message } = useSelector(
     (state) => state.timetables
+  );
+
+  const { courses } = useSelector(
+    (state) => state.courses
   );
 
   const edit = () => {
@@ -35,28 +42,28 @@ function CoursesDashboard() {
     console.log('export');
   };
   useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+    // if (isError) {
+    //   console.log(message);
+    // }
 
     if (!user) {
       navigate('/');
     }
-    dispatch(getTimetables());
-
+    dispatch(getTimetable(params.timetableId));
+    dispatch(getCourse(params.timetableId));
     return () => {
       dispatch(reset());
     };
-  }, [user, navigate, isError, message, dispatch]);
+  }, [user, navigate, isError, message, dispatch, params]);
 
-  if (isLoading) {
-    return <h1>Loading..</h1>;
-  }
+  // if (isLoading) {
+  //   return <h1>Loading..</h1>;
+  // }
 
   return (
     <section className='container mx-auto pt-20 bg-white'>
       <div>
-        <div class='text-primary font-medium text-sm  text-center inline-flex items-center'>
+        <div className='text-primary font-medium text-sm  text-center inline-flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-4 w-4'
@@ -128,7 +135,9 @@ function CoursesDashboard() {
       </div>
       <div className='px-4 mt-10'>
         <span className='text-lg font-extrabold'>
-          Subject: INFO Term: 202010
+        {/* {timetables.subject}
+        {timetables.term_code} */}
+        {/* {courses[0].course_number} */}
         </span>
       </div>
       <div className='relative rounded-xl overflow-auto pt-10'>
@@ -155,35 +164,14 @@ function CoursesDashboard() {
               </tr>
             </thead>
             <tbody className='bg-white'>
-              {timetables.map((timetable, key) => {
+              {courses.map((course, key) => {
                 return (
                   <tr key={key}>
                     <td className='border-b border-slate-100  p-4 text-black '>
-                      21109
+                    {course.course_number}
                     </td>
                     <td className='border-b border-slate-100  p-4 text-black '>
-                      1111
-                    </td>
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      S11
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pr-8 text-black'>
-                      04-Mar-2022
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Edit</span>
-                      </Link>
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Delete</span>
-                      </Link>
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Copy</span>
-                      </Link>
+                    {course.instructor_name}
                     </td>
                   </tr>
                 );

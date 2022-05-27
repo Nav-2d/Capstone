@@ -128,6 +128,7 @@ function TimetableDashboard() {
             </thead>
             <tbody className='bg-white'>
               {timetables.map((timetable, key) => {
+                const route = `/timetable-dashboard/${timetable._id}`;
                 return (
                   <tr key={key}>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black '>
@@ -145,7 +146,7 @@ function TimetableDashboard() {
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/course-dashboard'>
+                      <Link to={route}>
                         <span>View</span>
                       </Link>
                     </td>

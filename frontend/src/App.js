@@ -26,7 +26,7 @@ function App() {
           ></Route>
           <Route path='/add-timetable' element={<AddTimetable />}></Route>
           <Route
-            path='/course-dashboard'
+            path='/timetable-dashboard/:timetableId'
             element={<CoursesDashboard />}
           ></Route>
           <Route path='/add-course' element={<AddCourse />}></Route>
