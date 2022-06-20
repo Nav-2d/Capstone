@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import TimetableDashboard from './pages/TimetableDashboard';
 import AddTimetable from './pages/AddTimetable';
+import EditTimetable from './pages/EditTImetable';
 import AddCourse from './pages/AddCourse';
 import ViewCourse from './pages/ViewCourse';
 
@@ -26,7 +27,11 @@ function App() {
           ></Route>
           <Route path='/add-timetable' element={<AddTimetable />}></Route>
           <Route
-            path='/course-dashboard'
+            path='/edit-timetable/:timetableId'
+            element={<EditTimetable />}
+          ></Route>
+          <Route
+            path='/timetable-dashboard/:timetableId'
             element={<CoursesDashboard />}
           ></Route>
           <Route path='/add-course' element={<AddCourse />}></Route>

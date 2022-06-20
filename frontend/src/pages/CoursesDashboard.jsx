@@ -1,39 +1,21 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import { reset, getTimetables } from '../features/timetables/timetableSlice';
+import { useSelector } from 'react-redux';
+import { reset, getTimetables, selectAllTimetables, selectTimetableById } from '../features/timetables/timetableSlice';
+import { useParams } from 'react-router-dom';
 
 function CoursesDashboard() {
+  const params = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
   const { user } = useSelector((state) => state.auth);
-  const { timetables, isLoading, isError, message } = useSelector(
-    (state) => state.timetables
+
+  const { isLoading, isError, message } = useSelector(
+    selectAllTimetables
   );
 
-  const edit = () => {
-    console.log('edit');
-  };
+  const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
 
-  const view = () => {
-    navigate('/courses');
-  };
-
-  const addTimetable = () => {
-    navigate('/addtimetable');
-  };
-
-  const deleteTimetable = () => {
-    console.log('delete');
-  };
-
-  const copy = () => {
-    console.log('copy');
-  };
-  const exportCSV = () => {
-    console.log('export');
-  };
   useEffect(() => {
     if (isError) {
       console.log(message);
@@ -41,13 +23,9 @@ function CoursesDashboard() {
 
     if (!user) {
       navigate('/');
-    }
-    dispatch(getTimetables());
-
-    return () => {
-      dispatch(reset());
     };
-  }, [user, navigate, isError, message, dispatch]);
+
+  }, [user, navigate, isError, message]);
 
   if (isLoading) {
     return <h1>Loading..</h1>;
@@ -56,7 +34,7 @@ function CoursesDashboard() {
   return (
     <section className='container mx-auto pt-20 bg-white'>
       <div>
-        <div class='text-primary font-medium text-sm  text-center inline-flex items-center'>
+        <div className='text-primary font-medium text-sm  text-center inline-flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-4 w-4'
@@ -126,10 +104,21 @@ function CoursesDashboard() {
           </div>
         </div>
       </div>
-      <div className='px-4 mt-10'>
-        <span className='text-lg font-extrabold'>
-          Subject: INFO Term: 202010
-        </span>
+      <div className="px-4 flex w-1/4 justify-between">
+        <div className=''>
+          <h3 className="mt-6 text-sm text-gray-500">
+            {/* <span className="absolute inset-0"></span> */}
+            Subject
+          </h3>
+          <p className="text-base font-semibold text-gray-900">{timetable.subject}</p>
+        </div>
+        <div className=''>
+          <h3 className="mt-6 text-sm text-gray-500">
+            {/* <span className="absolute inset-0"></span> */}
+            Term Code
+          </h3>
+          <p className="text-base font-semibold text-gray-900">{timetable.term_code}</p>
+        </div>
       </div>
       <div className='relative rounded-xl overflow-auto pt-10'>
         <div className='shadow-sm overflow-hidden my-8'>
@@ -155,39 +144,21 @@ function CoursesDashboard() {
               </tr>
             </thead>
             <tbody className='bg-white'>
-              {timetables.map((timetable, key) => {
-                return (
-                  <tr key={key}>
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      21109
-                    </td>
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      1111
-                    </td>
-                    <td className='border-b border-slate-100  p-4 text-black '>
-                      S11
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pr-8 text-black'>
-                      04-Mar-2022
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Edit</span>
-                      </Link>
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Delete</span>
-                      </Link>
-                    </td>
-                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/view-course'>
-                        <span>Copy</span>
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
+                {timetable.courses.map((course, key) => {
+                  return (
+                    <tr key={key}>
+                      <td className='border-b border-slate-100  p-4 pl-8 text-black '>
+                        {course.campus}
+                      </td>
+                      <td className='border-b border-slate-100  p-4 pl-8 text-black '>
+                        {course.course_number}
+                      </td>
+                      <td className='border-b border-slate-100  p-4 pl-8 text-black '>
+                        {course.section}
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>

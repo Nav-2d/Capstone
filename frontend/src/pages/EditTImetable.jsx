@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTimetable } from '../features/timetables/timetableSlice';
-import { getTimetables, selectAllTimetables } from '../features/timetables/timetableSlice';
+import { selectAllTimetables, selectTimetableById, editTimetable } from '../features/timetables/timetableSlice';
 
-function AddTimetable() {
-  const dispatch = useDispatch();
+function EditTimetable() {
+  const params = useParams();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  
   const { user } = useSelector((state) => state.auth);
-  const { isLoading, isError, message } = useSelector(selectAllTimetables);
+
+  const { isLoading, isError, message } = useSelector(
+    selectAllTimetables
+  );
+
+  const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
 
   useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
+    // if (isError) {
+    //   console.log(message);
+    // }
 
     if (!user) {
       navigate('/');
@@ -23,9 +28,11 @@ function AddTimetable() {
   }, [user, navigate, isError, message]);
 
   const [formData, setFormData] = useState({
-    subject: '',
-    term_code: '',
+    subject: timetable.subject,
+    term_code: timetable.term_code,
   });
+
+  const { subject, term_code } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -37,8 +44,8 @@ function AddTimetable() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    dispatch(createTimetable({ ...formData }));
-    setFormData('');
+    dispatch(editTimetable({ ...formData, id: params.timetableId }));
+    // setFormData('');
     navigate('/timetable-dashboard');
   };
 
@@ -82,8 +89,9 @@ function AddTimetable() {
               type='text'
               name='term_code'
               id='term_code'
-              required
+              value={term_code}
               onChange={onChange}
+              required
               className='appearance-none block w-full px-3 py-2 mb-4 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md'
             />
           </div>
@@ -95,8 +103,9 @@ function AddTimetable() {
               type='text'
               name='subject'
               id='subject'
-              required
+              value={subject}
               onChange={onChange}
+              required
               className='appearance-none block w-full px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary border border-gray-300 rounded-md '
             />
           </div>
@@ -112,4 +121,4 @@ function AddTimetable() {
   );
 }
 
-export default AddTimetable;
+export default EditTimetable;

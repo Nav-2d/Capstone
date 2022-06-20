@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/sample', require('./routes/sampleRoutes'));
 app.use('/api/timetables', require('./routes/timetableRoutes'));
 app.use('/api/courses', require('./routes/courseRoutes'));
 app.use(errorHandler);

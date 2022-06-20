@@ -2,38 +2,15 @@ import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { reset, getTimetables } from '../features/timetables/timetableSlice';
+import { getTimetables, deleteTimetable, selectAllTimetables } from '../features/timetables/timetableSlice';
 
 function TimetableDashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { timetables, isLoading, isError, message } = useSelector(
-    (state) => state.timetables
-  );
 
-  const edit = () => {
-    console.log('edit');
-  };
+  const { timetables, isLoading, isError, message } = useSelector(selectAllTimetables);
 
-  const view = () => {
-    navigate('/courses');
-  };
-
-  const addTimetable = () => {
-    navigate('/addtimetable');
-  };
-
-  const deleteTimetable = () => {
-    console.log('delete');
-  };
-
-  const copy = () => {
-    console.log('copy');
-  };
-  const exportCSV = () => {
-    console.log('export');
-  };
   useEffect(() => {
     if (isError) {
       console.log(message);
@@ -44,9 +21,6 @@ function TimetableDashboard() {
     }
     dispatch(getTimetables());
 
-    return () => {
-      dispatch(reset());
-    };
   }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
@@ -127,7 +101,7 @@ function TimetableDashboard() {
               </tr>
             </thead>
             <tbody className='bg-white'>
-              {timetables.map((timetable, key) => {
+              {timetables?.map((timetable, key) => {
                 return (
                   <tr key={key}>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black '>
@@ -140,19 +114,19 @@ function TimetableDashboard() {
                       {moment(timetable.createdAt).format('DD-MMM-YYYY')}
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/course-dashboard'>
+                    <Link to={`/edit-timetable/${timetable._id}`}>
                         <span>Edit</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/course-dashboard'>
+                      <Link to={`/timetable-dashboard/${timetable._id}`}>
                         <span>View</span>
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <Link to='/course-dashboard'>
-                        <span>Delete</span>
-                      </Link>
+                      <button onClick={() => dispatch(deleteTimetable(timetable._id))}>
+                        Delete
+                      </button>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
                       <Link to='/course-dashboard'>
