@@ -1,25 +1,43 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createTimetable } from '../features/timetables/timetableSlice';
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectAllTimetables, selectTimetableById } from '../features/timetables/timetableSlice';
 
 function ViewCourse() {
-  const [formData, setFormData] = useState({
-    subject: '',
-    term_code: '',
-  });
 
-  const { subject, term_code } = formData;
-
-  const dispatch = useDispatch();
+  const params = useParams();
   const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.auth);
 
+  const { isLoading, isError, message } = useSelector(
+    selectAllTimetables
+  );
+
+  const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
+
+  const course = timetable.courses.find(course => course._id === params.courseId)
+
   useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+
     if (!user) {
       navigate('/');
-    }
-  }, [user, navigate, dispatch]);
+    };
+
+  }, [user, navigate, isError, message]);
+
+  const [formData, setFormData] = useState({
+    crn: course.crn,
+    course_number: course.course_number,
+    section: course.section,
+    campus: course.campus,
+    status: course.status,
+  });
+
+  const { crn, course_number, section, campus, status } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -28,18 +46,14 @@ function ViewCourse() {
     }));
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    dispatch(createTimetable({ ...formData }));
-    setFormData('');
-    navigate('/timetable-dashboard');
-  };
+  if (isLoading) {
+    return <h1>Loading..</h1>;
+  }
 
   return (
     <section className='container mx-auto pt-20'>
       <div>
-        <div class='text-primary font-medium text-sm  text-center inline-flex items-center'>
+        <div className='text-primary font-medium text-sm  text-center inline-flex items-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-6 w-6'
@@ -54,7 +68,7 @@ function ViewCourse() {
               d='M10 19l-7-7m0 0l7-7m-7 7h18'
             />
           </svg>
-          <Link to='/course-dashboard'>Back to Course Dashboard</Link>
+          <Link to={`/timetable-dashboard/${timetable._id}`}>Back to Course Dashboard</Link>
         </div>
       </div>
       <div className='max-w-sm mx-auto'>
@@ -62,10 +76,19 @@ function ViewCourse() {
           <h3 className='mb-4 text-2xl md:text-3xl font-bold'>View Course</h3>
         </div>
       </div>
-      <div className='px-4 mt-10'>
-        <span className='text-lg font-extrabold'>
-          Subject: INFO Term: 202010
-        </span>
+      <div className="px-4 flex w-1/4 justify-between">
+        <div className=''>
+          <h3 className="mt-6 text-sm text-gray-500">
+            Subject
+          </h3>
+          <p className="text-base font-semibold text-gray-900">{timetable.subject}</p>
+        </div>
+        <div className=''>
+          <h3 className="mt-6 text-sm text-gray-500">
+            Term Code
+          </h3>
+          <p className="text-base font-semibold text-gray-900">{timetable.term_code}</p>
+        </div>
       </div>
       <div className='hidden sm:block' aria-hidden='true'>
         <div className='py-5'>
@@ -88,34 +111,32 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='crn'
                         className='block text-sm font-medium text-gray-700'
                       >
                         CRN
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
-                        value='test'
+                        name='crn'
+                        id='crn'
+                        value={crn}
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='course_number'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Course Number
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
-                        value='test'
+                        name='course_number'
+                        id='course_number'
+                        value={course_number}
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
@@ -124,51 +145,51 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='section'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Section
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        value='test'
+                        name='section'
+                        id='section'
+                        value={section}
+                        onChange={onChange}
                         disabled
-                        autoComplete='given-name'
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='campus'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Campus
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
-                        value='test'
+                        name='campus'
+                        id='campus'
+                        value={campus}
+                        onChange={onChange}
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='status'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Status
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
-                        value='test'
+                        name='status'
+                        id='status'
+                        value={status}
+                        onChange={onChange}
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
@@ -180,7 +201,9 @@ function ViewCourse() {
                     type='submit'
                     className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
                   >
-                    Edit
+                      <Link to={`/timetable-dashboard/${timetable._id}/edit-course/${course._id}`}>
+                        <span>Edit</span>
+                      </Link>
                   </button>
                 </div>
               </div>
@@ -211,16 +234,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='instructional_method'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Intsructional Method
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='instructional_method'
+                        id='instructional_method'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -228,16 +250,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='instructor_name'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Instructor Name
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='instructor_name'
+                        id='instructor_name'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -281,16 +302,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='meeting_type'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Meeting Type
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='meeting_type'
+                        id='meeting_type'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -298,16 +318,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='session'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Session
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='session'
+                        id='session'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -315,16 +334,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='start_date'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Start Date
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='start_date'
+                        id='start_date'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -334,16 +352,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='end_date'
                         className='block text-sm font-medium text-gray-700'
                       >
                         End Date
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='end_date'
+                        id='end_date'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -351,16 +368,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='days'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Days
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='days'
+                        id='days'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -368,16 +384,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='start_time'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Start Time
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='start_time'
+                        id='start_time'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -387,16 +402,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='end_time'
                         className='block text-sm font-medium text-gray-700'
                       >
                         End Time
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='end_time'
+                        id='end_time'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -404,16 +418,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='meeting_room_type'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Room Type
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='meeting_room_type'
+                        id='meeting_room_type'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -421,16 +434,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='meeting_room_preference'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Room Preference
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='meeting_room_preference'
+                        id='meeting_room_preference'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -474,16 +486,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='exam'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Exam Y/N
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='exam'
+                        id='exam'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -491,16 +502,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='exam_date_time'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Exam Date and Time
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='exam_date_time'
+                        id='exam_date_time'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -510,16 +520,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='exam_room_type'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Room Type
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='exam_room_type'
+                        id='exam_room_type'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -527,16 +536,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='exam_room_preference'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Room Preference
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='exam_room_preference'
+                        id='exam_room_preference'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -580,16 +588,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='class_size'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Class Size
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='class_size'
+                        id='class_size'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -597,16 +604,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='reserved_seats'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Reserved Seats
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='reserved_seats'
+                        id='reserved_seats'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -616,16 +622,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='overflow'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Overflow
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='overflow'
+                        id='overflow'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -633,16 +638,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-6 sm:col-span-3'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='remove_reserves_date'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Date reserves to be removed
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='remove_reserves_date'
+                        id='remove_reserves_date'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -686,16 +690,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='fee_detail_code'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Fee Detail Code
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='fee_detail_code'
+                        id='fee_detail_code'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -703,16 +706,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='additional_mandatory_course_fee'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Additional mandatory course fee
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='additional_mandatory_course_fee'
+                        id='additional_mandatory_course_fee'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -720,16 +722,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='funding_source'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Funding Source
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='funding_source'
+                        id='funding_source'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -773,16 +774,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='banner_codes'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Banner codes
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='banner_codes'
+                        id='banner_codes'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -790,16 +790,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='last-name'
+                        htmlFor='matrix_code'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Matrix code
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='matrix_code'
+                        id='matrix_code'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -807,16 +806,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='crosslist_code'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Crosslist code
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='crosslist_code'
+                        id='crosslist_code'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -826,16 +824,15 @@ function ViewCourse() {
                   <div className='grid grid-cols-6 gap-6'>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='link_id'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Link ID
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='link_id'
+                        id='link_id'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -850,9 +847,8 @@ function ViewCourse() {
                       </label>
                       <input
                         type='text'
-                        name='last-name'
-                        id='last-name'
-                        autoComplete='family-name'
+                        name='zedcred'
+                        id='zedcred'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -860,16 +856,15 @@ function ViewCourse() {
                     </div>
                     <div className='col-span-4 sm:col-span-2'>
                       <label
-                        htmlFor='first-name'
+                        htmlFor='restrictions'
                         className='block text-sm font-medium text-gray-700'
                       >
                         Restrictions
                       </label>
                       <input
                         type='text'
-                        name='first-name'
-                        id='first-name'
-                        autoComplete='given-name'
+                        name='restrictions'
+                        id='restrictions'
                         value='test'
                         disabled
                         className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -878,16 +873,15 @@ function ViewCourse() {
                   </div>
                   <div className='col-span-6'>
                     <label
-                      htmlFor='first-name'
+                      htmlFor='additional_information'
                       className='block text-sm font-medium text-gray-700'
                     >
                       Additional Information
                     </label>
                     <input
                       type='text'
-                      name='first-name'
-                      id='first-name'
-                      autoComplete='given-name'
+                      name='additional_information'
+                      id='additional_information'
                       value='test'
                       disabled
                       className='mt-1 bg-gray-100 focus:ring-primary focus:border-primaryblock w-full shadow-sm sm:text-sm border-gray-300 rounded-md'

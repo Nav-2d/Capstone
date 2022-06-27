@@ -22,9 +22,13 @@ const parentSchema = mongoose.Schema(
       required: [true, 'Please enter a subject'],
     },
     courses: [{
+      crn: String,
       course_number: String,
       section: String,
-      campus: String
+      campus: String,
+      status: String,
+      instructional_method: String,
+      instructor_name: String
     }]
   },
   {
@@ -32,5 +36,4 @@ const parentSchema = mongoose.Schema(
   }
 );
 
-// module.exports.Courses = mongoose.model('Courses', courseSchema);
 module.exports = mongoose.model('Parent', parentSchema);

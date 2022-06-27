@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCourse, selectAllTimetables, selectTimetableById } from '../features/timetables/timetableSlice';
 
-function AddCourse() {
+function EditCourse() {
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ function AddCourse() {
 
   const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
   let courses = [];
-  courses = timetable.courses
+  courses = timetable.courses.filter(course => course._id !== params.courseId)
+  const course = timetable.courses.find(course => course._id === params.courseId)
 
   useEffect(() => {
     if (isError) {
@@ -29,19 +30,17 @@ function AddCourse() {
 
   }, [user, navigate, isError, message]);
 
-
-
   const [formData, setFormData] = useState({
-    crn: '',
-    course_number: '',
-    section: '',
-    campus: '',
-    status: '',
-    instructional_method: '',
-    instructor_name: ''
+    crn: course.crn,
+    course_number: course.course_number,
+    section: course.section,
+    campus: course.campus,
+    status: course.status,
+    instructional_method: course.instructional_method,
+    instructor_name: course.instructor_name
   });
 
-  // const { crn, course_number, section, campus, status, instructional_method, instructor_name } = formData;
+  const { crn, course_number, section, campus, status, instructional_method, instructor_name } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -87,7 +86,7 @@ function AddCourse() {
       </div>
       <div className='max-w-sm mx-auto'>
         <div className='mb-6 text-center'>
-          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Add Course</h3>
+          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Edit Course</h3>
         </div>
       </div>
       <div className="px-4 flex w-1/4 justify-between">
@@ -134,7 +133,9 @@ function AddCourse() {
                         type='text'
                         name='crn'
                         id='crn'
+                        value={crn}
                         onChange={onChange}
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -149,6 +150,7 @@ function AddCourse() {
                         type='text'
                         name='course_number'
                         id='course_number'
+                        value={course_number}
                         onChange={onChange}
                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -167,6 +169,7 @@ function AddCourse() {
                         type='text'
                         name='section'
                         id='section'
+                        value={section}
                         onChange={onChange}
                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -182,6 +185,7 @@ function AddCourse() {
                       <select
                         name='campus'
                         id='campus'
+                        value={campus}
                         onChange={onChange}
                         
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -205,6 +209,7 @@ function AddCourse() {
                       <select
                         name='status'
                         id='status'
+                        value={status}
                         onChange={onChange}
                         
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -262,6 +267,7 @@ function AddCourse() {
                       <select
                         name='instructional_method'
                         id='instructional_method'
+                        value={instructional_method}
                         onChange={onChange}
                         
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -295,7 +301,7 @@ function AddCourse() {
                         type='text'
                         name='instructor_name'
                         id='instructor_name'
-                        
+                        value={instructor_name}
                         onChange={onChange}
                         placeholder='Lastname, Firstname'
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
@@ -347,7 +353,6 @@ function AddCourse() {
                       <select
                         name='meeting_type'
                         id='meeting_type'
-                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       >
                         <option value=' '>-- Select Meeting Type --</option>
@@ -371,7 +376,6 @@ function AddCourse() {
                       <select
                         name='session'
                         id='session'
-                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       >
                         <option value=' '>-- Select Session --</option>
@@ -397,7 +401,6 @@ function AddCourse() {
                         name='start_date'
                         id='start_date'
                         onChange={onChange}
-                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -413,7 +416,6 @@ function AddCourse() {
                         name='end_date'
                         id='end_date'
                         onChange={onChange}
-                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -554,7 +556,6 @@ function AddCourse() {
                         name='start_time'
                         id='start_time'
                         onChange={onChange}
-                        
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -620,7 +621,7 @@ function AddCourse() {
                         name='meeting_room_preference'
                         id='meeting_room_preference'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -771,7 +772,7 @@ function AddCourse() {
                         name='exam_room_preference'
                         id='exam_room_preference'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -839,7 +840,7 @@ function AddCourse() {
                         name='reserved_seats'
                         id='reserved_seats'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -941,7 +942,7 @@ function AddCourse() {
                         name='additional_mandatory_course_fee'
                         id='additional_mandatory_course_fee'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -957,7 +958,7 @@ function AddCourse() {
                         name='funding_source'
                         id='funding_source'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -1025,7 +1026,7 @@ function AddCourse() {
                         name='banner_codes'
                         id='matrix_code'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -1075,7 +1076,7 @@ function AddCourse() {
                         name='zedcred'
                         id='zedcred'
                         onChange={onChange}
-                        
+                       
                         className='mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
                       />
                     </div>
@@ -1130,4 +1131,4 @@ function AddCourse() {
   );
 }
 
-export default AddCourse;
+export default EditCourse;

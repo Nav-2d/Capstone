@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTimetable } from '../features/timetables/timetableSlice';
-import { getTimetables, selectAllTimetables } from '../features/timetables/timetableSlice';
+import { selectAllTimetables } from '../features/timetables/timetableSlice';
 
 function AddTimetable() {
   const dispatch = useDispatch();
@@ -34,10 +34,9 @@ function AddTimetable() {
     }));
   };
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
-    console.log(formData);
-    dispatch(createTimetable({ ...formData }));
+    await dispatch(createTimetable({ ...formData }));
     setFormData('');
     navigate('/timetable-dashboard');
   };

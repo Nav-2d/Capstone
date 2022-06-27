@@ -17,9 +17,9 @@ function EditTimetable() {
   const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
 
   useEffect(() => {
-    // if (isError) {
-    //   console.log(message);
-    // }
+    if (isError) {
+      console.log(message);
+    }
 
     if (!user) {
       navigate('/');
@@ -41,11 +41,9 @@ function EditTimetable() {
     }));
   };
 
-  const onSubmit = (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
-    console.log(formData);
-    dispatch(editTimetable({ ...formData, id: params.timetableId }));
-    // setFormData('');
+    await dispatch(editTimetable({ ...formData, id: params.timetableId }));
     navigate('/timetable-dashboard');
   };
 
@@ -78,7 +76,7 @@ function EditTimetable() {
       </div>
       <div className='max-w-md mx-auto p-10 shadow-lg'>
         <div className='mb-6 text-center'>
-          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Add Timetable</h3>
+          <h3 className='mb-4 text-2xl md:text-3xl font-bold'>Edit Timetable</h3>
         </div>
         <form onSubmit={onSubmit}>
           <div className='mb-6'>

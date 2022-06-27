@@ -114,7 +114,7 @@ function TimetableDashboard() {
                       {moment(timetable.createdAt).format('DD-MMM-YYYY')}
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                    <Link to={`/edit-timetable/${timetable._id}`}>
+                      <Link to={`/edit-timetable/${timetable._id}`}>
                         <span>Edit</span>
                       </Link>
                     </td>

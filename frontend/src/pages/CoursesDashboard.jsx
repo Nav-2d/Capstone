@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { reset, getTimetables, selectAllTimetables, selectTimetableById } from '../features/timetables/timetableSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTimetables, addCourse, selectAllTimetables, selectTimetableById } from '../features/timetables/timetableSlice';
 import { useParams } from 'react-router-dom';
 
 function CoursesDashboard() {
   const params = useParams();
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+  let courses = [];
   const { user } = useSelector((state) => state.auth);
 
   const { isLoading, isError, message } = useSelector(
@@ -15,6 +16,14 @@ function CoursesDashboard() {
   );
 
   const timetable = useSelector(state => selectTimetableById(state, params.timetableId))
+
+  async function handleDelete(timetableId, courseId) {
+    courses = timetable.courses.filter(course => course._id !== courseId);
+    await dispatch(addCourse({ courses, id: params.timetableId }));
+    dispatch(getTimetables());
+    navigate(`/timetable-dashboard/${timetable._id}`);
+    // navigate('/timetable-dashboard');
+  }
 
   useEffect(() => {
     if (isError) {
@@ -25,7 +34,9 @@ function CoursesDashboard() {
       navigate('/');
     };
 
-  }, [user, navigate, isError, message]);
+    dispatch(getTimetables());
+
+  }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
     return <h1>Loading..</h1>;
@@ -64,7 +75,7 @@ function CoursesDashboard() {
           </div>
           <div>
             <Link
-              to='/add-course'
+              to={`/timetable-dashboard/${timetable._id}/add-course`}
               className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
             >
               <svg
@@ -107,14 +118,12 @@ function CoursesDashboard() {
       <div className="px-4 flex w-1/4 justify-between">
         <div className=''>
           <h3 className="mt-6 text-sm text-gray-500">
-            {/* <span className="absolute inset-0"></span> */}
             Subject
           </h3>
           <p className="text-base font-semibold text-gray-900">{timetable.subject}</p>
         </div>
         <div className=''>
           <h3 className="mt-6 text-sm text-gray-500">
-            {/* <span className="absolute inset-0"></span> */}
             Term Code
           </h3>
           <p className="text-base font-semibold text-gray-900">{timetable.term_code}</p>
@@ -134,9 +143,6 @@ function CoursesDashboard() {
                 <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
                   Section
                 </th>
-                <th className='border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left'>
-                  Created On
-                </th>
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
                 <th className='border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left' />
@@ -148,7 +154,7 @@ function CoursesDashboard() {
                   return (
                     <tr key={key}>
                       <td className='border-b border-slate-100  p-4 pl-8 text-black '>
-                        {course.campus}
+                        {course.crn}
                       </td>
                       <td className='border-b border-slate-100  p-4 pl-8 text-black '>
                         {course.course_number}
@@ -156,6 +162,31 @@ function CoursesDashboard() {
                       <td className='border-b border-slate-100  p-4 pl-8 text-black '>
                         {course.section}
                       </td>
+                      <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                      <Link to={`/timetable-dashboard/${timetable._id}/edit-course/${course._id}`}>
+                        <span>Edit</span>
+                      </Link>
+                    </td>
+                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                      <Link to={`/timetable-dashboard/${timetable._id}/view-course/${course._id}`}>
+                        <span>View</span>
+                      </Link>
+                    </td>
+                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                      <button onClick={() => handleDelete(timetable._id, course._id)}>
+                        Delete
+                      </button>
+                    </td>
+                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                      <Link to='/course-dashboard'>
+                        <span>Copy</span>
+                      </Link>
+                    </td>
+                    <td className='border-b border-slate-100  p-4 pl-8 text-black'>
+                      <Link to='/course-dashboard'>
+                        <span>Export CSV</span>
+                      </Link>
+                    </td>
                     </tr>
                   );
                 })}

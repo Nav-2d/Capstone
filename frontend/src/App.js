@@ -8,9 +8,10 @@ import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import TimetableDashboard from './pages/TimetableDashboard';
 import AddTimetable from './pages/AddTimetable';
-import EditTimetable from './pages/EditTImetable';
+import EditTimetable from './pages/EditTimetable';
 import AddCourse from './pages/AddCourse';
 import ViewCourse from './pages/ViewCourse';
+import EditCourse from './pages/EditCourse';
 
 function App() {
   return (
@@ -34,8 +35,9 @@ function App() {
             path='/timetable-dashboard/:timetableId'
             element={<CoursesDashboard />}
           ></Route>
-          <Route path='/add-course' element={<AddCourse />}></Route>
-          <Route path='/view-course' element={<ViewCourse />}></Route>
+          <Route path='/timetable-dashboard/:timetableId/add-course' element={<AddCourse />}></Route>
+          <Route path='/timetable-dashboard/:timetableId/view-course/:courseId' element={<ViewCourse />}></Route>
+          <Route path='/timetable-dashboard/:timetableId/edit-course/:courseId' element={<EditCourse />}></Route>
         </Routes>
       </Router>
       <ToastContainer />

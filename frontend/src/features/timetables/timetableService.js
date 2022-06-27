@@ -25,7 +25,6 @@ const editTimetable = async (timetableData, token) => {
   };
 
   const response = await axios.patch(API_URL + id, updatedTimetableData, config);
-  console.log(response.data)
   return response.data;
 };
 
@@ -65,12 +64,30 @@ const deleteTimetable = async (timetableId, token) => {
   return response.data;
 };
 
+// Add course
+const addCourse = async (timetableData, token) => {
+  const { id, ...courses } = timetableData;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.patch(API_URL + id, {
+    courses: courses.courses
+  }, config);
+
+  return response.data;
+};
+
 const timetableService = {
   createTimetable,
   editTimetable,
   getTimetables,
   getTimetable,
   deleteTimetable,
+  addCourse,
 };
 
 export default timetableService;
