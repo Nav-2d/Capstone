@@ -7,8 +7,8 @@ const User = require('../models/userModel');
 // @route   POST /api/users/signup
 // @access  Public - Will change this later
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
+  const { fullName, email, password } = req.body;
+  if (!fullName || !email || !password) {
     res.status(400);
     throw new Error('Please add all fields');
   }
@@ -19,13 +19,13 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists');
   }
 
-  //Password hashing
+  // Password hashing
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // Create a new User
   const user = await User.create({
-    name,
+    fullName,
     email,
     password: hashedPassword,
   });
@@ -33,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user.id,
-      name: user.name,
+      fullName: user.fullName,
       email: user.email,
       token: generateToken(user._id),
     });
@@ -54,7 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
-      name: user.name,
+      fullName: user.fullName,
       email: user.email,
       token: generateToken(user._id),
     });

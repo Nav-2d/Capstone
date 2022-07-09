@@ -57,7 +57,7 @@ function Login() {
   return (
     <div className='flex flex-wrap h-screen justify-center items-center'>
       <div className='w-full md:w-3/5 lg:w-1/2 md:min-h-full flex items-center justify-center'>
-        <div className='max-w-sm w-full mx-auto'>
+        <div className='max-w-sm w-full mx-auto bg-white p-6 shadow-lg'>
           <div className='mb-6 text-center'>
             <h3 className='text-2xl md:text-3xl font-bold'>
               Sign in to your account

@@ -3,15 +3,16 @@ import loginImage from '../assets/login.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { login, reset } from '../features/auth/authSlice';
+import { register, reset } from '../features/auth/authSlice';
 
 function SignUp() {
   const [formData, setFormData] = useState({
+    fullName: '',
     email: '',
     password: '',
   });
 
-  const { email, password } = formData;
+  const { email, password, fullName } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -43,11 +44,12 @@ function SignUp() {
     e.preventDefault();
 
     const userData = {
+      fullName,
       email,
       password,
     };
 
-    dispatch(login(userData));
+    dispatch(register(userData));
   };
 
   if (isLoading) {
@@ -65,13 +67,13 @@ function SignUp() {
           </div>
           <form onSubmit={onSubmit}>
             <div className='mb-6'>
-              <label htmlFor='name' className='block mb-2 font-medium'>
+              <label htmlFor='fullName' className='block mb-2 font-medium'>
                 Name
               </label>
               <input
-                type='name'
-                name='name'
-                id='name'
+                type='text'
+                name='fullName'
+                id='fullName'
                 required
                 onChange={onChange}
                 placeholder="Enter user's name"
@@ -114,7 +116,7 @@ function SignUp() {
                 Password
               </label>
               <input
-                type='confirmPassword'
+                type='password'
                 name='confirmPassword'
                 id='confirmPassword'
                 required
