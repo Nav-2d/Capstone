@@ -150,10 +150,12 @@ export const timetableSlice = createSlice({
       .addCase(editTimetable.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        const { _id, ...updatedTimetableData  } = action.payload
-        let existingTimetable = state.timetables.find(timetable => timetable._id === _id)
+        const { _id, ...updatedTimetableData } = action.payload;
+        let existingTimetable = state.timetables.find(
+          (timetable) => timetable._id === _id
+        );
         if (existingTimetable) {
-          existingTimetable = {...existingTimetable, updatedTimetableData}
+          existingTimetable = { ...existingTimetable, updatedTimetableData };
         }
       })
       .addCase(editTimetable.rejected, (state, action) => {
@@ -205,14 +207,16 @@ export const timetableSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      })
+      });
   },
 });
 
 export const { reset } = timetableSlice.actions;
 export default timetableSlice.reducer;
 
-export const selectAllTimetables = state => state.timetables
+export const selectAllTimetables = (state) => state.timetables;
 
 export const selectTimetableById = (state, timetableId) =>
-  state.timetables.timetables.find(timetable => timetable._id === timetableId)
+  state.timetables.timetables.find(
+    (timetable) => timetable._id === timetableId
+  );

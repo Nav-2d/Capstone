@@ -2,14 +2,27 @@ import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { getTimetables, deleteTimetable, selectAllTimetables } from '../features/timetables/timetableSlice';
+import {
+  getTimetables,
+  deleteTimetable,
+  selectAllTimetables,
+} from '../features/timetables/timetableSlice';
 
 function TimetableDashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  const { timetables, isLoading, isError, message } = useSelector(selectAllTimetables);
+  let filterTimetableByUser;
+
+  const { timetables, isLoading, isError, message } =
+    useSelector(selectAllTimetables);
+
+  if (user) {
+    filterTimetableByUser = timetables.filter(
+      (timetable) => timetable.userId === user._id
+    );
+  }
 
   useEffect(() => {
     if (isError) {
@@ -20,7 +33,6 @@ function TimetableDashboard() {
       navigate('/');
     }
     dispatch(getTimetables());
-
   }, [user, navigate, isError, message, dispatch]);
 
   if (isLoading) {
@@ -101,7 +113,7 @@ function TimetableDashboard() {
               </tr>
             </thead>
             <tbody className='bg-white'>
-              {timetables?.map((timetable, key) => {
+              {filterTimetableByUser?.map((timetable, key) => {
                 return (
                   <tr key={key}>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black '>
@@ -124,7 +136,9 @@ function TimetableDashboard() {
                       </Link>
                     </td>
                     <td className='border-b border-slate-100  p-4 pl-8 text-black'>
-                      <button onClick={() => dispatch(deleteTimetable(timetable._id))}>
+                      <button
+                        onClick={() => dispatch(deleteTimetable(timetable._id))}
+                      >
                         Delete
                       </button>
                     </td>

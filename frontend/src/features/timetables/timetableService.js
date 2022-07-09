@@ -24,7 +24,11 @@ const editTimetable = async (timetableData, token) => {
     },
   };
 
-  const response = await axios.patch(API_URL + id, updatedTimetableData, config);
+  const response = await axios.patch(
+    API_URL + id,
+    updatedTimetableData,
+    config
+  );
   return response.data;
 };
 
@@ -74,9 +78,13 @@ const addCourse = async (timetableData, token) => {
     },
   };
 
-  const response = await axios.patch(API_URL + id, {
-    courses: courses.courses
-  }, config);
+  const response = await axios.patch(
+    API_URL + id,
+    {
+      courses: courses.courses,
+    },
+    config
+  );
 
   return response.data;
 };
