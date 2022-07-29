@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
+import React, { useEffect } from "react";
+import Table from "./Table";
+import { useNavigate, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
 import {
   getTimetables,
   deleteTimetable,
   selectAllTimetables,
-} from '../features/timetables/timetableSlice';
+} from "../features/timetables/timetableSlice";
 
 function TimetableDashboard() {
   const navigate = useNavigate();
@@ -30,48 +31,120 @@ function TimetableDashboard() {
     }
 
     if (!user) {
-      navigate('/');
+      navigate("/");
     }
     dispatch(getTimetables());
   }, [user, navigate, isError, message, dispatch]);
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Subject",
+        accessor: "subject",
+      },
+      {
+        Header: "Term Code",
+        accessor: "term_code",
+      },
+      {
+        Header: "Created At",
+        accessor: "createdAt",
+        Cell: ({ value }) => moment(value).format("DD-MMM-YYYY"),
+      },
+      {
+        Header: "",
+        id: "viewRow",
+        Cell: (row) => (
+          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
+            <Link to={`/timetable-dashboard/${row.row.original._id}`}>
+              <span>View</span>
+            </Link>
+          </div>
+        ),
+      },
+      {
+        Header: "",
+        id: "editRow",
+        Cell: (row) => (
+          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
+            <Link to={`/edit-timetable/${row.row.original._id}`}>
+              <span>Edit</span>
+            </Link>
+          </div>
+        ),
+      },
+      {
+        Header: "",
+        id: "deleteRow",
+        Cell: (row) => (
+          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
+            <button
+              onClick={() => dispatch(deleteTimetable(row.row.original._id))}
+            >
+              Delete
+            </button>
+          </div>
+        ),
+      },
+      {
+        Header: "",
+        id: "copyRow",
+        Cell: (row) => (
+          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
+            <Link to="/courses">
+              <span>Copy</span>
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+
+  const data = React.useMemo(
+    () => filterTimetableByUser,
+    [filterTimetableByUser]
+  );
 
   if (isLoading) {
     return <h1>Loading..</h1>;
   }
 
   return (
-    <section className='container mx-auto pt-20'>
-      <div className='px-4'>
-        <div className='flex justify-between items-center'>
-          <div className='font-extrabold'>
-            <h1 className='text-3xl md:text-4xl  font-heading mt-3 mb-4'>
+    <section className="container mx-auto pt-20">
+      <div className="px-4">
+        <div className="flex justify-between items-center mb-10">
+          <div className="font-extrabold">
+            <h1 className="text-3xl md:text-4xl  font-heading mt-3 mb-4">
               Timetable Dashboard
             </h1>
-            <span className='text-lg text-primary'>View or add timetables</span>
+            <span className="text-lg text-primary">View or add timetables</span>
           </div>
           <div>
             <Link
-              to='/add-timetable'
-              className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'
+              to="/add-timetable"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
               <svg
-                className='-ml-1 mr-2 h-5 w-5'
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                aria-hidden='true'
+                className="-ml-1 mr-2 h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
               >
                 <path
-                  fillRule='evenodd'
-                  d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                  clipRule='evenodd'
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
                 />
               </svg>
               <p>Add</p>
             </Link>
           </div>
         </div>
-        <div className='max-w-lg pt-10'>
+        <Table columns={columns} data={data} />
+      </div>
+      {/* <div className='max-w-lg pt-10'>
           <div className='flex flex-wrap -mx-2 justify-center'>
             <div className='flex-grow w-full md:w-auto px-2 mb-2'>
               <input
@@ -89,9 +162,8 @@ function TimetableDashboard() {
               </a>
             </div>
           </div>
-        </div>
-      </div>
-      <div className='relative rounded-xl overflow-auto pt-10'>
+        </div> */}
+      {/* <div className='relative rounded-xl overflow-auto pt-10'>
         <div className='shadow-sm overflow-hidden my-8'>
           <table className='border-collapse table-auto w-full text-sm'>
             <thead className='bg-white py-12'>
@@ -158,7 +230,7 @@ function TimetableDashboard() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
