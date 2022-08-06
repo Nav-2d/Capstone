@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import timetableService from './timetableService';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import timetableService from "./timetableService";
 
 const initialState = {
   timetables: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
-  message: '',
+  message: "",
 };
 
 // Create new timetable
 export const createTimetable = createAsyncThunk(
-  'timetables/createTimetable',
+  "timetables/createTimetable",
   async (timetableData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -30,7 +30,7 @@ export const createTimetable = createAsyncThunk(
 
 // Edit timetable
 export const editTimetable = createAsyncThunk(
-  'timetables/editTimetable',
+  "timetables/editTimetable",
   async (timetableData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -49,7 +49,7 @@ export const editTimetable = createAsyncThunk(
 
 // Get user timetables
 export const getTimetables = createAsyncThunk(
-  'timetables/getTimetables',
+  "timetables/getTimetables",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -68,11 +68,11 @@ export const getTimetables = createAsyncThunk(
 
 // Get timetable by ID
 export const getTimetable = createAsyncThunk(
-  'timetables/getTimetable',
-  async (timetableData, thunkAPI) => {
+  "timetables/getTimetable",
+  async (timetableId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await timetableService.getTimetable(timetableData, token);
+      return await timetableService.getTimetable(timetableId, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -87,7 +87,7 @@ export const getTimetable = createAsyncThunk(
 
 // Delete user timetable
 export const deleteTimetable = createAsyncThunk(
-  'timetables/deleteTimetable',
+  "timetables/deleteTimetable",
   async (timetableId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -104,9 +104,33 @@ export const deleteTimetable = createAsyncThunk(
   }
 );
 
+// Copy user timetable
+export const copyTimetable = createAsyncThunk(
+  "timetables/copyTimetable",
+  async (timetableId, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const timetableData = thunkAPI
+        .getState()
+        .timetables.timetables.find(
+          (timetable) => timetable._id === timetableId
+        );
+      return await timetableService.createTimetable(timetableData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Add course
 export const addCourse = createAsyncThunk(
-  'timetables/addCourse',
+  "timetables/addCourse",
   async (courseData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
@@ -123,11 +147,49 @@ export const addCourse = createAsyncThunk(
   }
 );
 
+// Copy timetable course
+export const copyCourse = createAsyncThunk(
+  "timetables/copyCourse",
+  async (data, thunkAPI) => {
+    try {
+      const { id, courseId } = data;
+      const token = thunkAPI.getState().auth.user.token;
+      const timetableData = thunkAPI
+        .getState()
+        .timetables.timetables.find((timetable) => timetable._id === id);
+      let allCourses = timetableData.courses;
+      let courseData = timetableData.courses.find(
+        (course) => course._id === courseId
+      );
+
+      let newCourse = { ...courseData };
+
+      delete newCourse._id;
+
+      console.log(newCourse);
+      let courses = allCourses.map(({ _id, ...rest }) => rest);
+
+      courses.push(newCourse);
+      console.log(courses);
+
+      return await timetableService.addCourse({ courses, id }, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const timetableSlice = createSlice({
-  name: 'timetable',
+  name: "timetable",
   initialState,
   reducers: {
-    // reset: (state) => initialState,
+    reset: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -191,6 +253,19 @@ export const timetableSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      .addCase(copyTimetable.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(copyTimetable.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.timetables.push(action.payload);
+      })
+      .addCase(copyTimetable.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(addCourse.pending, (state) => {
         state.isLoading = true;
       })
@@ -204,6 +279,19 @@ export const timetableSlice = createSlice({
         // }
       })
       .addCase(addCourse.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(copyCourse.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(copyCourse.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        // state.message = action.payload;
+      })
+      .addCase(copyCourse.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

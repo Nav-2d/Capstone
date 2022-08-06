@@ -6,6 +6,7 @@ import moment from "moment";
 import {
   getTimetables,
   deleteTimetable,
+  copyTimetable,
   selectAllTimetables,
 } from "../features/timetables/timetableSlice";
 
@@ -38,6 +39,10 @@ function TimetableDashboard() {
 
   const columns = React.useMemo(
     () => [
+      {
+        Header: "ID",
+        accessor: "_id",
+      },
       {
         Header: "Subject",
         accessor: "subject",
@@ -91,9 +96,11 @@ function TimetableDashboard() {
         id: "copyRow",
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
-            <Link to="/courses">
-              <span>Copy</span>
-            </Link>
+            <button
+              onClick={() => dispatch(copyTimetable(row.row.original._id))}
+            >
+              Copy
+            </button>
           </div>
         ),
       },

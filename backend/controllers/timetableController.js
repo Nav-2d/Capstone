@@ -1,5 +1,5 @@
-const asyncHandler = require('express-async-handler');
-const Timetable = require('../models/timetableModel');
+const asyncHandler = require("express-async-handler");
+const Timetable = require("../models/timetableModel");
 
 // @desc Get Timetables
 // @route GET /api/timetables
@@ -16,7 +16,7 @@ const addTimetable = asyncHandler(async (req, res) => {
   const { term_code, subject } = req.body;
   if (!term_code || !subject) {
     res.status(400);
-    throw new Error('Please add all fields');
+    throw new Error("Please add all fields");
   }
   const timetable = await Timetable.create({
     term_code,
@@ -35,24 +35,24 @@ const getTimetable = asyncHandler(async (req, res) => {
 });
 
 // @desc Update Timetable
-// @route PUT /api/timetables/:id
+// @route PATCH /api/timetables/:id
 // @access Private
 const updateTimetable = asyncHandler(async (req, res) => {
   const timetable = await Timetable.findById(req.params.id);
 
   if (!timetable) {
     res.status(400);
-    throw new Error('Timetable not found');
+    throw new Error("Timetable not found");
   }
 
   if (!req.user) {
     res.status(401);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   if (timetable.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error('User not authorized');
+    throw new Error("User not authorized");
   }
   const updatedTimetable = await Timetable.findByIdAndUpdate(
     req.params.id,
@@ -73,17 +73,17 @@ const deleteTimetable = asyncHandler(async (req, res) => {
 
   if (!timetable) {
     res.status(400);
-    throw new Error('Timetable not found');
+    throw new Error("Timetable not found");
   }
 
   if (!req.user) {
     res.status(401);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   if (timetable.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error('User not authorized');
+    throw new Error("User not authorized");
   }
 
   await timetable.remove();

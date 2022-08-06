@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getTimetables,
   addCourse,
+  copyCourse,
   selectAllTimetables,
   selectTimetableById,
 } from "../features/timetables/timetableSlice";
@@ -25,10 +26,10 @@ function CoursesDashboard() {
 
   async function handleDelete(timetableId, courseId) {
     courses = timetable.courses.filter((course) => course._id !== courseId);
-    await dispatch(addCourse({ courses, id: params.timetableId }));
+    await dispatch(addCourse({ courses, id: timetableId }));
     dispatch(getTimetables());
-    navigate(`/timetable-dashboard/${timetable._id}`);
-    // navigate('/timetable-dashboard');
+    // navigate(`/timetable-dashboard/${timetable._id}`);
+    navigate("/timetable-dashboard");
   }
 
   useEffect(() => {
@@ -106,9 +107,19 @@ function CoursesDashboard() {
         id: "copyRow",
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
-            <Link to="/courses">
-              <span>Copy</span>
-            </Link>
+            <button
+              onClick={() => {
+                dispatch(
+                  copyCourse({
+                    id: timetable._id,
+                    courseId: row.row.original._id,
+                  })
+                );
+                navigate("/timetable-dashboard");
+              }}
+            >
+              Copy
+            </button>
           </div>
         ),
       },
@@ -175,8 +186,23 @@ function CoursesDashboard() {
             </Link>
           </div>
         </div>
+        <div className="px-4 mb-8 flex w-1/4 justify-between ">
+          <div className="">
+            <h3 className="mt-6 text-sm text-gray-500">Subject</h3>
+            <p className="text-base font-semibold text-gray-900">
+              {timetable.subject}
+            </p>
+          </div>
+          <div className="">
+            <h3 className="mt-6 text-sm text-gray-500">Term Code</h3>
+            <p className="text-base font-semibold text-gray-900">
+              {timetable.term_code}
+            </p>
+          </div>
+        </div>
         <Table columns={columns} data={data} />
-        <div className="max-w-lg pt-10">
+      </div>
+      {/* <div className="max-w-lg pt-10">
           <div className="flex flex-wrap -mx-2 justify-center">
             <div className="flex-grow w-full md:w-auto px-2 mb-2">
               <input
@@ -194,23 +220,9 @@ function CoursesDashboard() {
               </a>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="px-4 flex w-1/4 justify-between">
-        <div className="">
-          <h3 className="mt-6 text-sm text-gray-500">Subject</h3>
-          <p className="text-base font-semibold text-gray-900">
-            {timetable.subject}
-          </p>
-        </div>
-        <div className="">
-          <h3 className="mt-6 text-sm text-gray-500">Term Code</h3>
-          <p className="text-base font-semibold text-gray-900">
-            {timetable.term_code}
-          </p>
-        </div>
-      </div>
-      <div className="relative rounded-xl overflow-auto pt-10">
+        </div> */}
+
+      {/* <div className="relative rounded-xl overflow-auto pt-10">
         <div className="shadow-sm overflow-hidden my-8">
           <table className="border-collapse table-auto w-full text-sm">
             <thead className="bg-white py-12">
@@ -280,7 +292,7 @@ function CoursesDashboard() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

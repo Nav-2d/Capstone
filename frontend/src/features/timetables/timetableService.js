@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = '/api/sample/';
+const API_URL = "/api/sample/";
 
 // Create new timetable
 const createTimetable = async (timetableData, token) => {
@@ -32,17 +32,17 @@ const editTimetable = async (timetableData, token) => {
   return response.data;
 };
 
-// Create timetable by ID
-const getTimetable = async (timetableData, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+// // Get timetable by ID
+// const getTimetable = async (timetableId, token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
 
-  const response = await axios.get(API_URL + timetableData, config);
-  return response.data;
-};
+//   const response = await axios.get(API_URL + timetableId, config);
+//   return response.data;
+// };
 
 // Get user timetables
 const getTimetables = async (token) => {
@@ -69,9 +69,11 @@ const deleteTimetable = async (timetableId, token) => {
 };
 
 // Add course
-const addCourse = async (timetableData, token) => {
-  const { id, ...courses } = timetableData;
+const addCourse = async (courseData, token) => {
+  const { id, ...courses } = courseData;
 
+  console.log(id);
+  console.log(courses);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -85,7 +87,7 @@ const addCourse = async (timetableData, token) => {
     },
     config
   );
-
+  // console.log(res÷ponse.data);
   return response.data;
 };
 
@@ -93,7 +95,7 @@ const timetableService = {
   createTimetable,
   editTimetable,
   getTimetables,
-  getTimetable,
+  // getTimetable,
   deleteTimetable,
   addCourse,
 };
