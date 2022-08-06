@@ -71,9 +71,6 @@ const deleteTimetable = async (timetableId, token) => {
 // Add course
 const addCourse = async (courseData, token) => {
   const { id, ...courses } = courseData;
-
-  console.log(id);
-  console.log(courses);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -87,7 +84,6 @@ const addCourse = async (courseData, token) => {
     },
     config
   );
-  // console.log(res÷ponse.data);
   return response.data;
 };
 

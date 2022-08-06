@@ -163,15 +163,9 @@ export const copyCourse = createAsyncThunk(
       );
 
       let newCourse = { ...courseData };
-
       delete newCourse._id;
-
-      console.log(newCourse);
       let courses = allCourses.map(({ _id, ...rest }) => rest);
-
       courses.push(newCourse);
-      console.log(courses);
-
       return await timetableService.addCourse({ courses, id }, token);
     } catch (error) {
       const message =

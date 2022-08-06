@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Table from "./Table";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +10,30 @@ import {
   selectTimetableById,
 } from "../features/timetables/timetableSlice";
 import { useParams } from "react-router-dom";
+import Dialog from "../components/Dialog";
 
 function CoursesDashboard() {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+    nameTimetable: "",
+  });
+
+  const idTimetableRef = useRef();
+  const idCourseRef = useRef();
+
+  const handleDialog = (message, isLoading, nameTimetable) => {
+    setDialog({
+      message,
+      isLoading,
+      nameTimetable,
+    });
+  };
+
   let courses = [];
   const { user } = useSelector((state) => state.auth);
 
@@ -24,13 +43,23 @@ function CoursesDashboard() {
     selectTimetableById(state, params.timetableId)
   );
 
-  async function handleDelete(timetableId, courseId) {
-    courses = timetable.courses.filter((course) => course._id !== courseId);
-    await dispatch(addCourse({ courses, id: timetableId }));
-    dispatch(getTimetables());
-    // navigate(`/timetable-dashboard/${timetable._id}`);
-    navigate("/timetable-dashboard");
-  }
+  const handleDelete = (timetableId, courseId) => {
+    handleDialog("Are you sure you want to delete this?", true, timetable);
+    idTimetableRef.current = timetableId;
+    idCourseRef.current = courseId;
+  };
+
+  const confirmDelete = (choose) => {
+    if (choose) {
+      handleDialog("", false);
+      courses = timetable.courses.filter(
+        (course) => course._id !== idCourseRef.current
+      );
+      dispatch(addCourse({ courses, id: idTimetableRef.current }));
+    } else {
+      handleDialog("", false);
+    }
+  };
 
   useEffect(() => {
     if (isError) {
@@ -201,98 +230,14 @@ function CoursesDashboard() {
           </div>
         </div>
         <Table columns={columns} data={data} />
+        {dialog.isLoading && (
+          <Dialog
+            nameTimetable={dialog.nameTimetable}
+            message={dialog.message}
+            onDialog={confirmDelete}
+          />
+        )}
       </div>
-      {/* <div className="max-w-lg pt-10">
-          <div className="flex flex-wrap -mx-2 justify-center">
-            <div className="flex-grow w-full md:w-auto px-2 mb-2">
-              <input
-                className="inline-block w-full p-4 text-lg font-bold placeholder-gray-500 shadow border-2 border-primary rounded outline-none"
-                type="email"
-                placeholder="Search for courses"
-              />
-            </div>
-            <div className="w-full md:w-auto px-2 mb-2">
-              <a
-                className="inline-flex items-center justify-center w-full md:w-auto h-full py-4 px-5 text-center leading-6 text-lg text-white font-extrabold bg-primary hover:bg-primary border-3 border-primary rounded transition duration-200"
-                href="/"
-              >
-                Search
-              </a>
-            </div>
-          </div>
-        </div> */}
-
-      {/* <div className="relative rounded-xl overflow-auto pt-10">
-        <div className="shadow-sm overflow-hidden my-8">
-          <table className="border-collapse table-auto w-full text-sm">
-            <thead className="bg-white py-12">
-              <tr>
-                <th className="border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left">
-                  CRN
-                </th>
-                <th className="border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left">
-                  Course Num
-                </th>
-                <th className="border-b font-medium p-4 pr-8 pt-0 pb-3 text-primary text-left">
-                  Section
-                </th>
-                <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left" />
-                <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left" />
-                <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left" />
-                <th className="border-b font-medium p-4 pl-8 pt-0 pb-3 text-primary  text-left" />
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {timetable.courses.map((course, key) => {
-                return (
-                  <tr key={key}>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black ">
-                      {course.crn}
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black ">
-                      {course.course_number}
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black ">
-                      {course.section}
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black">
-                      <Link
-                        to={`/timetable-dashboard/${timetable._id}/edit-course/${course._id}`}
-                      >
-                        <span>Edit</span>
-                      </Link>
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black">
-                      <Link
-                        to={`/timetable-dashboard/${timetable._id}/view-course/${course._id}`}
-                      >
-                        <span>View</span>
-                      </Link>
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black">
-                      <button
-                        onClick={() => handleDelete(timetable._id, course._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black">
-                      <Link to="/course-dashboard">
-                        <span>Copy</span>
-                      </Link>
-                    </td>
-                    <td className="border-b border-slate-100  p-4 pl-8 text-black">
-                      <Link to="/course-dashboard">
-                        <span>Export CSV</span>
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
     </section>
   );
 }

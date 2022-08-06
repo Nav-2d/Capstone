@@ -18,7 +18,7 @@ const addParent = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add all fields");
   }
-  courses.forEach((course) => delete course._id);
+  courses?.forEach((course) => delete course._id);
   const parent = await Parent.create({
     term_code,
     subject,
