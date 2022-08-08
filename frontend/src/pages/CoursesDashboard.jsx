@@ -10,7 +10,9 @@ import {
   selectTimetableById,
 } from "../features/timetables/timetableSlice";
 import { useParams } from "react-router-dom";
-import Dialog from "../components/Dialog";
+import DialogCourse from "../components/DialogCourse";
+import Spinner from "../components/Spinner";
+import { CSVLink } from "react-csv";
 
 function CoursesDashboard() {
   const params = useParams();
@@ -20,21 +22,22 @@ function CoursesDashboard() {
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
-    nameTimetable: "",
+    nameCourse: "",
   });
 
   const idTimetableRef = useRef();
   const idCourseRef = useRef();
 
-  const handleDialog = (message, isLoading, nameTimetable) => {
+  const handleDialog = (message, isLoading, nameCourse) => {
     setDialog({
       message,
       isLoading,
-      nameTimetable,
+      nameCourse,
     });
   };
 
   let courses = [];
+
   const { user } = useSelector((state) => state.auth);
 
   const { isLoading, isError, message } = useSelector(selectAllTimetables);
@@ -44,18 +47,20 @@ function CoursesDashboard() {
   );
 
   const handleDelete = (timetableId, courseId) => {
-    handleDialog("Are you sure you want to delete this?", true, timetable);
+    const course = timetable.courses.find((course) => course._id === courseId);
+    handleDialog("Are you sure you want to delete this?", true, course);
     idTimetableRef.current = timetableId;
     idCourseRef.current = courseId;
   };
 
-  const confirmDelete = (choose) => {
+  const confirmDelete = async (choose) => {
     if (choose) {
       handleDialog("", false);
       courses = timetable.courses.filter(
         (course) => course._id !== idCourseRef.current
       );
-      dispatch(addCourse({ courses, id: idTimetableRef.current }));
+      await dispatch(addCourse({ courses, id: idTimetableRef.current }));
+      await dispatch(getTimetables());
     } else {
       handleDialog("", false);
     }
@@ -72,6 +77,11 @@ function CoursesDashboard() {
 
     dispatch(getTimetables());
   }, [user, navigate, isError, message, dispatch]);
+
+  function changeLocation(placeToGo) {
+    navigate(placeToGo, { replace: true });
+    window.location.reload();
+  }
 
   const columns = React.useMemo(
     () => [
@@ -120,34 +130,36 @@ function CoursesDashboard() {
       },
       {
         Header: "",
-        id: "deleteRow",
+        id: "copyRow",
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
             <button
-              onClick={() => handleDelete(timetable._id, row.row.original._id)}
+              onClick={async () => {
+                await dispatch(
+                  copyCourse({
+                    id: timetable._id,
+                    courseId: row.row.original._id,
+                  })
+                );
+                await dispatch(getTimetables());
+              }}
             >
-              Delete
+              Copy
             </button>
           </div>
         ),
       },
       {
         Header: "",
-        id: "copyRow",
+        id: "deleteRow",
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
             <button
-              onClick={() => {
-                dispatch(
-                  copyCourse({
-                    id: timetable._id,
-                    courseId: row.row.original._id,
-                  })
-                );
-                navigate("/timetable-dashboard");
-              }}
+              onClick={() =>
+                handleDelete(params.timetableId, row.row.original._id)
+              }
             >
-              Copy
+              Delete
             </button>
           </div>
         ),
@@ -158,10 +170,17 @@ function CoursesDashboard() {
 
   const data = React.useMemo(() => timetable.courses, [timetable]);
 
-  if (isLoading) {
-    return <h1>Loading..</h1>;
-  }
+  const initSelect = (data) => {
+    return data.map((item) => ({
+      ...item,
+      subject: timetable.subject,
+      term_code: timetable.term_code,
+    }));
+  };
 
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <section className="container mx-auto pt-20 bg-white">
       <div>
@@ -229,10 +248,35 @@ function CoursesDashboard() {
             </p>
           </div>
         </div>
+        <div className="flex justify-end items-center">
+          <div className="inline-flex items-center  text-sm text-gray-500  bg-gray-200 hover:bg-gray-300 text-center rounded-md px-4 py-2 ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+              />
+            </svg>
+            <CSVLink
+              data={initSelect(data)}
+              filename={"courses.csv"}
+              target="_blank"
+            >
+              Export CSV
+            </CSVLink>
+          </div>
+        </div>
         <Table columns={columns} data={data} />
         {dialog.isLoading && (
-          <Dialog
-            nameTimetable={dialog.nameTimetable}
+          <DialogCourse
+            nameCourse={dialog.nameCourse}
             message={dialog.message}
             onDialog={confirmDelete}
           />

@@ -11,6 +11,7 @@ import {
 } from "../features/timetables/timetableSlice";
 
 import Dialog from "../components/Dialog";
+import Spinner from "../components/Spinner";
 
 function TimetableDashboard() {
   const navigate = useNavigate();
@@ -118,17 +119,6 @@ function TimetableDashboard() {
       },
       {
         Header: "",
-        id: "deleteRow",
-        Cell: (row) => (
-          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
-            <button onClick={() => handleDelete(row.row.original._id)}>
-              Delete
-            </button>
-          </div>
-        ),
-      },
-      {
-        Header: "",
         id: "copyRow",
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
@@ -136,6 +126,17 @@ function TimetableDashboard() {
               onClick={() => dispatch(copyTimetable(row.row.original._id))}
             >
               Copy
+            </button>
+          </div>
+        ),
+      },
+      {
+        Header: "",
+        id: "deleteRow",
+        Cell: (row) => (
+          <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
+            <button onClick={() => handleDelete(row.row.original._id)}>
+              Delete
             </button>
           </div>
         ),
@@ -150,7 +151,7 @@ function TimetableDashboard() {
   );
 
   if (isLoading) {
-    return <h1>Loading..</h1>;
+    return <Spinner />;
   }
 
   return (

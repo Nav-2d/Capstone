@@ -7,6 +7,8 @@ import {
   editTimetable,
 } from "../features/timetables/timetableSlice";
 
+import Spinner from "../components/Spinner";
+
 function EditTimetable() {
   const params = useParams();
   const navigate = useNavigate();
@@ -51,9 +53,8 @@ function EditTimetable() {
   }
 
   if (isLoading) {
-    return <h1>Loading..</h1>;
+    return <Spinner />;
   }
-
   return (
     <section className="container mx-auto pt-20">
       <div>

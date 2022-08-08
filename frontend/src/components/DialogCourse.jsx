@@ -1,4 +1,4 @@
-function Dialog({ message, onDialog, nameTimetable }) {
+function Dialog({ message, onDialog, nameCourse }) {
   return (
     <div
       style={{
@@ -70,11 +70,11 @@ function Dialog({ message, onDialog, nameTimetable }) {
           <div className="flex flex-row justify-center items-center gap-x-3 mb-6">
             <h3 className="text-sm text-gray-500">Subject</h3>
             <p className="text-base font-semibold text-gray-900">
-              {nameTimetable.subject}
+              {nameCourse.course_number}
             </p>
             <h3 className="text-sm text-gray-500">Term Code</h3>
             <p className="text-base font-semibold text-gray-900">
-              {nameTimetable.term_code}
+              {nameCourse.section}
             </p>
           </div>
           <div className="flex flex-row justify-center gap-x-3">

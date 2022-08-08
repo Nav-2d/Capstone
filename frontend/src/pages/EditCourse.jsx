@@ -6,6 +6,7 @@ import {
   selectAllTimetables,
   selectTimetableById,
 } from "../features/timetables/timetableSlice";
+import Spinner from "../components/Spinner";
 
 function EditCourse() {
   const params = useParams();
@@ -45,6 +46,32 @@ function EditCourse() {
     status: course.status,
     instructional_method: course.instructional_method,
     instructor_name: course.instructor_name,
+    meeting_type: course.meeting_type,
+    session: course.session,
+    start_date: course.start_date,
+    end_date: course.end_date,
+    days: course.days,
+    start_time: course.start_time,
+    end_time: course.end_time,
+    meeting_room_type: course.meeting_room_type,
+    meeting_room_preference: course.meeting_room_preference,
+    exam_date_time: course.exam_date_time,
+    exam_room_type: course.exam_room_type,
+    exam_room_preference: course.exam_room_preference,
+    class_size: course.class_size,
+    reserved_seats: course.reserved_seats,
+    overflow: course.overflow,
+    remove_reserves_date: course.remove_reserves_date,
+    fee_detail_code: course.fee_detail_code,
+    additional_mandatory_course_fee: course.additional_mandatory_course_fee,
+    funding_source: course.funding_source,
+    banner_codes: course.banner_codes,
+    matrix_code: course.matrix_code,
+    crosslist_code: course.crosslist_code,
+    link_id: course.link_id,
+    zedcred: course.zedcred,
+    restrictions: course.restrictions,
+    additional_information: course.additional_information,
   });
 
   const {
@@ -55,6 +82,32 @@ function EditCourse() {
     status,
     instructional_method,
     instructor_name,
+    meeting_type,
+    session,
+    start_date,
+    end_date,
+    days,
+    start_time,
+    end_time,
+    meeting_room_type,
+    meeting_room_preference,
+    exam_date_time,
+    exam_room_type,
+    exam_room_preference,
+    class_size,
+    reserved_seats,
+    overflow,
+    remove_reserves_date,
+    fee_detail_code,
+    additional_mandatory_course_fee,
+    funding_source,
+    banner_codes,
+    matrix_code,
+    crosslist_code,
+    link_id,
+    zedcred,
+    restrictions,
+    additional_information,
   } = formData;
 
   const onChange = (e) => {
@@ -73,7 +126,7 @@ function EditCourse() {
   }
 
   if (isLoading) {
-    return <h1>Loading..</h1>;
+    return <Spinner />;
   }
 
   return (
@@ -350,7 +403,7 @@ function EditCourse() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form>
+            <form onSubmit={onSubmitCI}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -364,6 +417,8 @@ function EditCourse() {
                       <select
                         name="meeting_type"
                         id="meeting_type"
+                        value={meeting_type}
+                        onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       >
                         <option value=" ">-- Select Meeting Type --</option>
@@ -387,6 +442,8 @@ function EditCourse() {
                       <select
                         name="session"
                         id="session"
+                        value={session}
+                        onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       >
                         <option value=" ">-- Select Session --</option>
@@ -411,6 +468,7 @@ function EditCourse() {
                         type="date"
                         name="start_date"
                         id="start_date"
+                        value={start_date}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -425,6 +483,7 @@ function EditCourse() {
                       <input
                         type="date"
                         name="end_date"
+                        value={end_date}
                         id="end_date"
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -566,6 +625,7 @@ function EditCourse() {
                         type="time"
                         name="start_time"
                         id="start_time"
+                        value={start_time}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -581,6 +641,7 @@ function EditCourse() {
                         type="time"
                         name="end_time"
                         id="end_time"
+                        value={end_time}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -597,6 +658,8 @@ function EditCourse() {
                       <select
                         name="meeting_room_type"
                         id="meeting_room_type"
+                        value={meeting_room_type}
+                        onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       >
                         <option value=" ">-- Select Room Type --</option>
@@ -629,6 +692,7 @@ function EditCourse() {
                         type="text"
                         name="meeting_room_preference"
                         id="meeting_room_preference"
+                        value={meeting_room_preference}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -665,7 +729,7 @@ function EditCourse() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form>
+            <form onSubmit={onSubmitCI}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -729,6 +793,7 @@ function EditCourse() {
                         type="datetime-local"
                         name="exam_date_time"
                         id="exam_date_time"
+                        value={exam_date_time}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -745,6 +810,8 @@ function EditCourse() {
                       <select
                         name="exam_room_type"
                         id="exam_room_type"
+                        value={exam_room_type}
+                        onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       >
                         <option value=" ">-- Select Room Type --</option>
@@ -776,6 +843,7 @@ function EditCourse() {
                       <input
                         type="text"
                         name="exam_room_preference"
+                        value={exam_room_preference}
                         id="exam_room_preference"
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -813,7 +881,7 @@ function EditCourse() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form>
+            <form onSubmit={onSubmitCI}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -827,6 +895,7 @@ function EditCourse() {
                       <input
                         type="text"
                         name="class_size"
+                        value={class_size}
                         id="class_size"
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -842,6 +911,7 @@ function EditCourse() {
                       <input
                         type="text"
                         name="reserved_seats"
+                        value={reserved_seats}
                         id="reserved_seats"
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -859,6 +929,7 @@ function EditCourse() {
                       <input
                         type="text"
                         name="overflow"
+                        value={overflow}
                         id="overflow"
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -875,6 +946,7 @@ function EditCourse() {
                         type="date"
                         name="remove_reserves_date"
                         id="remove_reserves_date"
+                        value={remove_reserves_date}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -911,7 +983,7 @@ function EditCourse() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form>
+            <form onSubmit={onSubmitCI}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -926,6 +998,7 @@ function EditCourse() {
                         type="text"
                         name="fee_detail_code"
                         id="fee_detail_code"
+                        value={fee_detail_code}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -941,6 +1014,7 @@ function EditCourse() {
                         type="text"
                         name="additional_mandatory_course_fee"
                         id="additional_mandatory_course_fee"
+                        value={additional_mandatory_course_fee}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -956,6 +1030,7 @@ function EditCourse() {
                         type="text"
                         name="funding_source"
                         id="funding_source"
+                        value={funding_source}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -992,7 +1067,7 @@ function EditCourse() {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form>
+            <form onSubmit={onSubmitCI}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
@@ -1007,6 +1082,7 @@ function EditCourse() {
                         type="text"
                         name="banner_codes"
                         id="banner_codes"
+                        value={banner_codes}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1020,8 +1096,9 @@ function EditCourse() {
                       </label>
                       <input
                         type="text"
-                        name="banner_codes"
+                        name="matrix_code"
                         id="matrix_code"
+                        value={matrix_code}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1037,6 +1114,7 @@ function EditCourse() {
                         type="text"
                         name="crosslist_code"
                         id="crosslist_code"
+                        value={crosslist_code}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1054,6 +1132,7 @@ function EditCourse() {
                         type="text"
                         name="link_id"
                         id="link_id"
+                        value={link_id}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1069,6 +1148,7 @@ function EditCourse() {
                         type="text"
                         name="zedcred"
                         id="zedcred"
+                        value={zedcred}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1084,6 +1164,7 @@ function EditCourse() {
                         type="text"
                         name="restrictions"
                         id="restrictions"
+                        value={restrictions}
                         onChange={onChange}
                         className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
@@ -1100,6 +1181,7 @@ function EditCourse() {
                       type="text"
                       name="additional_information"
                       id="additional_information"
+                      value={additional_information}
                       onChange={onChange}
                       className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
