@@ -78,11 +78,6 @@ function CoursesDashboard() {
     dispatch(getTimetables());
   }, [user, navigate, isError, message, dispatch]);
 
-  function changeLocation(placeToGo) {
-    navigate(placeToGo, { replace: true });
-    window.location.reload();
-  }
-
   const columns = React.useMemo(
     () => [
       {

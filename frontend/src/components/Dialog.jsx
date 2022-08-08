@@ -80,6 +80,7 @@ function Dialog({ message, onDialog, nameTimetable }) {
           <div className="flex flex-row justify-center gap-x-3">
             <button
               onClick={() => onDialog(true)}
+              id="delete"
               className="text-white bg-primary hover:bg-primaryfocus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
             >
               Delete

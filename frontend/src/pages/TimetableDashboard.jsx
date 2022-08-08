@@ -14,8 +14,28 @@ import Dialog from "../components/Dialog";
 import Spinner from "../components/Spinner";
 
 function TimetableDashboard() {
+  let filterTimetableByUser;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { timetables, isLoading, isError, message } =
+    useSelector(selectAllTimetables);
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+    if (!user) {
+      navigate("/");
+    }
+    dispatch(getTimetables());
+  }, [user, navigate, isError, message, dispatch]);
+
+  if (user) {
+    filterTimetableByUser = timetables.filter(
+      (timetable) => timetable.userId === user._id
+    );
+  }
 
   const [dialog, setDialog] = useState({
     message: "",
@@ -33,21 +53,8 @@ function TimetableDashboard() {
     });
   };
 
-  const { user } = useSelector((state) => state.auth);
-
-  let filterTimetableByUser;
-
-  const { timetables, isLoading, isError, message } =
-    useSelector(selectAllTimetables);
-
-  if (user) {
-    filterTimetableByUser = timetables.filter(
-      (timetable) => timetable.userId === user._id
-    );
-  }
-
   const handleDelete = (timetableId) => {
-    const timetable = filterTimetableByUser.find((t) => t._id === timetableId);
+    const timetable = filterTimetableByUser?.find((t) => t._id === timetableId);
     handleDialog("Are you sure you want to delete this?", true, timetable);
     idTimetableRef.current = timetableId;
   };
@@ -60,17 +67,6 @@ function TimetableDashboard() {
       handleDialog("", false);
     }
   };
-
-  useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
-
-    if (!user) {
-      navigate("/");
-    }
-    dispatch(getTimetables());
-  }, [user, navigate, isError, message, dispatch]);
 
   const columns = React.useMemo(
     () => [
@@ -123,7 +119,10 @@ function TimetableDashboard() {
         Cell: (row) => (
           <div className="text-sm text-gray-500 px-2 py-1 bg-gray-200 hover:bg-gray-300 text-center rounded-full">
             <button
-              onClick={() => dispatch(copyTimetable(row.row.original._id))}
+              onClick={async () => {
+                await dispatch(copyTimetable(row.row.original._id));
+                await dispatch(getTimetables());
+              }}
             >
               Copy
             </button>
@@ -186,7 +185,7 @@ function TimetableDashboard() {
             </Link>
           </div>
         </div>
-        <Table columns={columns} data={data} />
+        {user && <Table columns={columns} data={data} />}
         {dialog.isLoading && (
           <Dialog
             nameTimetable={dialog.nameTimetable}

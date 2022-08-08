@@ -18,7 +18,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
-    "react-table": "^7.7.0",
+    "react-table": "7.7.0",
     "react-toastify": "8.2.0"
   },
   "scripts": {
@@ -43,6 +43,8 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
+    "@playwright/test": "^1.24.2",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23"

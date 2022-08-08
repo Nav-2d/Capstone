@@ -142,7 +142,7 @@ function Table({ columns, data }) {
   } = useTable(
     {
       columns,
-      data,
+      data: data,
     },
     useFilters,
     useGlobalFilter,
@@ -158,15 +158,6 @@ function Table({ columns, data }) {
           globalFilter={state.globalFilter}
           setGlobalFilter={setGlobalFilter}
         />
-        {/* {headerGroups.map((headerGroup) =>
-          headerGroup.headers.map((column) =>
-            column.Filter ? (
-              <div className='mt-2 sm:mt-0' key={column.id}>
-                {column.render('Filter')}
-              </div>
-            ) : null
-          )
-        )} */}
       </div>
       {/* table */}
       <div className="mt-4 flex flex-col">

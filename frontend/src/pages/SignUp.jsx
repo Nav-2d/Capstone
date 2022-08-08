@@ -11,9 +11,10 @@ function SignUp() {
     fullName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
-  const { email, password, fullName } = formData;
+  const { email, password, fullName, confirmPassword } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,13 +45,17 @@ function SignUp() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const userData = {
-      fullName,
-      email,
-      password,
-    };
-
-    dispatch(register(userData));
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+    } else {
+      const userData = {
+        fullName,
+        email,
+        password,
+        confirmPassword,
+      };
+      dispatch(register(userData));
+    }
   };
 
   if (isLoading) {
