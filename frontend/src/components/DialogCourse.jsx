@@ -68,11 +68,11 @@ function Dialog({ message, onDialog, nameCourse }) {
             </h3>
           </div>
           <div className="flex flex-row justify-center items-center gap-x-3 mb-6">
-            <h3 className="text-sm text-gray-500">Subject</h3>
+            <h3 className="text-sm text-gray-500">Course Number</h3>
             <p className="text-base font-semibold text-gray-900">
               {nameCourse.course_number}
             </p>
-            <h3 className="text-sm text-gray-500">Term Code</h3>
+            <h3 className="text-sm text-gray-500">Section</h3>
             <p className="text-base font-semibold text-gray-900">
               {nameCourse.section}
             </p>

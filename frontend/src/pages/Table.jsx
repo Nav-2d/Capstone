@@ -259,7 +259,7 @@ function Table({ columns, data }) {
                   setPageSize(Number(e.target.value));
                 }}
               >
-                {[5, 10, 20].map((pageSize) => (
+                {[2, 5, 10].map((pageSize) => (
                   <option key={pageSize} value={pageSize}>
                     Show {pageSize}
                   </option>
