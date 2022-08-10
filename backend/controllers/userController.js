@@ -1,22 +1,22 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
 
 // @desc    Register new user
 // @route   POST /api/users/signup
 // @access  Public - Will change this later
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, role } = req.body;
   if (!fullName || !email || !password) {
     res.status(400);
-    throw new Error('Please add all fields');
+    throw new Error("Please add all fields");
   }
 
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("User already exists");
   }
 
   // Password hashing
@@ -27,20 +27,9 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     fullName,
     email,
+    role,
     password: hashedPassword,
   });
-
-  if (user) {
-    res.status(201).json({
-      _id: user.id,
-      fullName: user.fullName,
-      email: user.email,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Invalid User data');
-  }
 });
 
 // @desc    Login user
@@ -56,11 +45,12 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user.id,
       fullName: user.fullName,
       email: user.email,
+      role: user.role,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error('Invalid credentials');
+    throw new Error("Invalid credentials");
   }
 });
 
@@ -73,7 +63,7 @@ const getMe = asyncHandler(async (req, res) => {
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: "30d",
   });
 };
 

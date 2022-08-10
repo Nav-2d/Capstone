@@ -27,4 +27,20 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect };
+const restrictTo = (...roles) => {
+  console.log(roles);
+  return (req, res, next) => {
+    // roles ['admin', 'user']. role='user'
+    console.log("emntered");
+    console.log(req.user);
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new Error("You do not have permission to perform this action", 403)
+      );
+    }
+
+    next();
+  };
+};
+
+module.exports = { protect, restrictTo };

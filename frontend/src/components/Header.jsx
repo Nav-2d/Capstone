@@ -23,12 +23,19 @@ function Header() {
               <span>University Timetable</span>
             </Link>
           </div>
-          <div className="cursor-pointer  bg-primary px-4 py-2 rounded-md">
-            {user ? (
-              <button onClick={onLogout}>Logout</button>
-            ) : (
-              <Link to="/">Sign In</Link>
+          <div className="flex flex-col sm:flex-row">
+            {user?.role === "admin" && (
+              <div className="cursor-pointer  bg-primary px-4 py-2 mr-4 rounded-md">
+                <Link to="/sign-up">Sign Up</Link>
+              </div>
             )}
+            <div className="cursor-pointer bg-primary px-4 py-2 rounded-md">
+              {user ? (
+                <button onClick={onLogout}>Logout</button>
+              ) : (
+                <Link to="/">Sign In</Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

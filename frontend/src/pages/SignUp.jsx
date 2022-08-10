@@ -24,13 +24,22 @@ function SignUp() {
   );
 
   useEffect(() => {
+    console.log(user);
     if (isError) {
       toast.error(message);
     }
 
-    if (isSuccess || user) {
-      navigate("/timetable-dashboard");
+    if (!user || user.role !== "admin") {
+      console.log("entered 1");
+      navigate("/");
+    } else if (isSuccess || user.role === "admin") {
+      console.log("entered 2");
+      navigate("/sign-up");
     }
+    // else {
+    //   console.log("entered 3");
+    //   navigate("/timetable-dashboard");
+    // }
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -52,9 +61,10 @@ function SignUp() {
         fullName,
         email,
         password,
-        confirmPassword,
       };
+      console.log(userData);
       dispatch(register(userData));
+      navigate("/timetable-dashboard");
     }
   };
 
