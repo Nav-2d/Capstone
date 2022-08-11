@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const colors = require("colors");
 const dotenv = require("dotenv").config();
 const { errorHandler } = require("./middleware/errorMiddleware");
@@ -16,9 +17,20 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/sample", require("./routes/sampleRoutes"));
 app.use("/api/timetables", require("./routes/timetableRoutes"));
 app.use("/api/courses", require("./routes/courseRoutes"));
-app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-});
+
+// Serve frontend
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "../", "frontend", "build", "index.html")
+    )
+  );
+} else {
+  app.get("/", (req, res) => res.send("Please set to production"));
+}
+
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
